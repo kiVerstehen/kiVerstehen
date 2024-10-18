@@ -1,0 +1,7 @@
+matplotlib
+numpy
+ipywidgets
+torch
+os
+fastbook
+fastai
