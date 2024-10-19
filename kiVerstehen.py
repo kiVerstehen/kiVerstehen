@@ -8,8 +8,6 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
-import simple_image_download.simple_image_download as simp
-import os
 from fastbook import *
 from fastai.vision.widgets import *
 from IPython.display import Image as Ima
