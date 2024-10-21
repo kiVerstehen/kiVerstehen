@@ -10,7 +10,7 @@ import torch.optim as optim
 
 from fastbook import *
 from fastai.vision.widgets import *
-from IPython.display import Image as Ima
+
 
  
 def aufgabe3():
