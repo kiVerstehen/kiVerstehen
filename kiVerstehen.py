@@ -10,6 +10,9 @@ import torch.optim as optim
 
 from fastbook import *
 from fastai.vision.widgets import *
+import os
+import matplotlib.pyplot as plt
+
 
 
  
@@ -367,4 +370,53 @@ def testeBildInModell(projektname, bildname):
 
     
 
+
+def trainingsdatenAnzeigen(name, num_cols=5, figsize=(9, 2)):
+    """
+    Zeigt Bilder aus den Unterordnern eines Hauptordners in einem Raster an.
+    
+    Args:
+        name (str): Pfad zum Hauptordner, der die Unterordner mit den Bildern enthält.
+        num_cols (int): Anzahl der Spalten im Raster.
+        figsize (tuple): Größe der gesamten Abbildung.
+    """
+    main_folder = "Beispiel-Modelle/Trainingsdaten/" + name
+    
+    def load_images_from_subfolders(folder):
+        images = []
+        for subfolder in os.listdir(folder):
+            subfolder_path = os.path.join(folder, subfolder)
+            if os.path.isdir(subfolder_path):
+                for filename in os.listdir(subfolder_path):
+                    img_path = os.path.join(subfolder_path, filename)
+                    if os.path.isfile(img_path) and img_path.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')):
+                        images.append((img_path, subfolder))
+        return images
+
+    # Lade die Bilder
+    images = load_images_from_subfolders(main_folder)
+
+    # Anzahl der Bilder
+    num_images = len(images)
+
+    # Debug-Ausgabe
+    print(f"Gesamtanzahl der Bilder: {num_images}")
+
+    # Berechne die Anzahl der Zeilen
+    num_rows = num_images // num_cols + int(num_images % num_cols != 0)
+
+    # Erstelle die Plotfigur
+    fig, axes = plt.subplots(num_rows, num_cols, figsize=(figsize[0], num_rows * figsize[1]))
+
+    # Zeige die Bilder und Bildunterschriften
+    for i, ax in enumerate(axes.flat):
+        if i < num_images:
+            img_path, label = images[i]
+            img = mpimg.imread(img_path)
+            ax.imshow(img)
+            ax.set_title(label)
+        ax.axis('off')
+
+    plt.tight_layout()
+    return plt.show()
 
