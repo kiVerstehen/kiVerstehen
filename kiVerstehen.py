@@ -12,6 +12,7 @@ from fastbook import *
 from fastai.vision.widgets import *
 import os
 import matplotlib.pyplot as plt
+import platform
 
 
 
@@ -360,8 +361,13 @@ def testeBildInModell(projektname, bildname):
 
     im = Image.open(f'Beispiel-Modelle/Testbilder/{bildname}')
     #frag das Modell, ob es sich beim Bild um x oder y handelt.
+    
     #load pkl-model
-    learn_inf = load_learner(f'Beispiel-Modelle/Modelle/{projektname}.pkl')
+    if platform.system() == "Linux":
+        learn_inf = load_learner(f'Beispiel-Modelle/Modelle/{projektname}-linux.pkl')
+    elif platform.system() == "Windows":
+        learn_inf = load_learner(f'Beispiel-Modelle/Modelle/{projektname}.pkl')
+    
     #predict for image 'blabla.jpeg'
     pred,pred_idx,probs = learn_inf.predict(f'Beispiel-Modelle/Testbilder/{bildname}')
     #gebe die prediction aus
