@@ -36,7 +36,7 @@ def aufgabe3():
         return OffsetImage(mpimg.imread(path), zoom=zoom)
 
     # Funktion zum Berechnen und Plotten der Abstände zur Geraden
-    def plot_with_distances(steigung=1.0, y_achsenabschnitt=0.0, save=False):
+    def plot_with_distances(steigung=1.0, y_achsenabschnitt=0.0):#, save=False):
         fig, ax = plt.subplots()
 
         # Scatterplot für Katzen erstellen
@@ -89,17 +89,17 @@ def aufgabe3():
         print(f'Kostenfunktion - Summe beider Werte:  {total_distance_cats+total_distance_dogs:.2f}')
 
         # Speichere den Plot als Bilddatei, wenn gewünscht
-        if save:
+        """if save:
             plt.savefig('aufgabe3.png', dpi=300, bbox_inches='tight')  # Speicher als PNG
-            print("Plot gespeichert als 'aufgabe3.png'")
+            print("Plot gespeichert als 'aufgabe3.png'")"""
         
         plt.show()
 
     # Interaktiver Plot mit anpassbarer Gerade und Möglichkeit, den Plot zu speichern
     interact(plot_with_distances, 
             steigung=widgets.FloatSlider(min=-1, max=1, step=0.05, value=0.3),
-            y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=17.0),
-            save=widgets.Checkbox(value=False, description='Plot speichern'))
+            y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=17.0))
+            #,save=widgets.Checkbox(value=False, description='Plot speichern'))
     
 def aufgabe6():
     # Feste Werte für Größe (in cm) und Gewicht (in kg)
@@ -119,7 +119,7 @@ def aufgabe6():
         return OffsetImage(mpimg.imread(path), zoom=zoom)
 
     # Funktion zum Berechnen und Plotten der Abstände zur neuen Funktion
-    def plot_with_new_function(w1=0.3, b1=17.0, w2=0.3, b2=17.0, save=False):
+    def plot_with_new_function(w1=0.3, b1=17.0, w2=0.3, b2=17.0):#, save=False):
         fig, ax = plt.subplots()
 
         # Scatterplot für Katzen erstellen
@@ -178,9 +178,9 @@ def aufgabe6():
         print(f'Kostenfunktion - Summe beider Werte: {total_distance_cats_above + total_distance_dogs_below:.2f}')
 
         # Speichere den Plot als Bilddatei, wenn gewünscht
-        if save:
+        """if save:
             plt.savefig('aufgabe6.png', dpi=300, bbox_inches='tight')  # Speicher als PNG
-            print("Plot gespeichert als 'aufgabe6.png'")
+            print("Plot gespeichert als 'aufgabe6.png'")"""
         
         plt.show()
 
@@ -189,8 +189,8 @@ def aufgabe6():
             w1=widgets.FloatSlider(min=-2, max=1, step=0.05, value=0.-0.5),
             b1=widgets.FloatSlider(min=0, max=50, step=0.05, value=25.0),
             w2=widgets.FloatSlider(min=-0.5, max=2, step=0.05, value=0.3),
-            b2=widgets.FloatSlider(min=-10, max=20, step=0.05, value=13.0),
-            save=widgets.Checkbox(value=False, description='Plot speichern'))
+            b2=widgets.FloatSlider(min=-10, max=20, step=0.05, value=13.0))
+            #,save=widgets.Checkbox(value=False, description='Plot speichern'))
 
 def aufgabe9(epochen=1000):
     # Originaldaten
