@@ -71,7 +71,7 @@ def aufgabe3():
             if cat_weights[i] > y_on_line:  # nur Katzen oberhalb der Geraden
                 distance = cat_weights[i] - y_on_line
                 total_distance_cats += distance
-                # Linie für Abstand zeichnen
+                # Linie für distanz zeichnen
                 ax.plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
 
         # Abstände für Hunde (unterhalb der Geraden)
@@ -80,12 +80,12 @@ def aufgabe3():
             if dog_weights[i] < y_on_line:  # nur Hunde unterhalb der Geraden
                 distance = y_on_line - dog_weights[i]
                 total_distance_dogs += distance
-                # Linie für Abstand zeichnen
+                # Linie für distanz zeichnen
                 ax.plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
 
         # Gesamtabstände ausgeben
-        print(f'Gesamtabstand der falsch kategorisierten Katzen: {total_distance_cats:.2f}')
-        print(f'Gesamtabstand der falsch kategorisierten Hunde: {total_distance_dogs:.2f}')
+        print(f'Gesamtdistanz der falsch kategorisierten Katzen: {total_distance_cats:.2f}')
+        print(f'Gesamtdistanz der falsch kategorisierten Hunde: {total_distance_dogs:.2f}')
         print(f'Kostenfunktion - Summe beider Werte:  {total_distance_cats+total_distance_dogs:.2f}')
 
         # Speichere den Plot als Bilddatei, wenn gewünscht
@@ -160,7 +160,7 @@ def aufgabe6():
             if cat_weights[i] > y_on_line:  # nur Katzen oberhalb der Geraden
                 distance = cat_weights[i] - y_on_line
                 total_distance_cats_above += distance
-                # Linie für Abstand zeichnen
+                # Linie für distanz zeichnen
                 ax.plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
 
         # Abstände für Hunde
@@ -169,12 +169,12 @@ def aufgabe6():
             if dog_weights[i] < y_on_line:  # nur Hunde unterhalb der Geraden
                 distance = y_on_line - dog_weights[i]
                 total_distance_dogs_below += distance
-                # Linie für Abstand zeichnen
+                # Linie für distanz zeichnen
                 ax.plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
 
         # Gesamtabstände ausgeben
-        print(f'Gesamtabstand der falsch kategorisierten Katzen: {total_distance_cats_above:.2f}')
-        print(f'Gesamtabstand der falsch kategorisierten Hunde: {total_distance_dogs_below:.2f}')
+        print(f'Gesamtdistanz der falsch kategorisierten Katzen: {total_distance_cats_above:.2f}')
+        print(f'Gesamtdistanz der falsch kategorisierten Hunde: {total_distance_dogs_below:.2f}')
         print(f'Kostenfunktion - Summe beider Werte: {total_distance_cats_above + total_distance_dogs_below:.2f}')
 
         # Speichere den Plot als Bilddatei, wenn gewünscht
