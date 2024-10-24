@@ -13,7 +13,7 @@ from fastai.vision.widgets import *
 import os
 import matplotlib.pyplot as plt
 import platform
-
+from PIL import Image, UnidentifiedImageError
 
 
  
@@ -396,7 +396,12 @@ def trainingsdatenAnzeigen(name, num_cols=5, figsize=(9, 2)):
                 for filename in os.listdir(subfolder_path):
                     img_path = os.path.join(subfolder_path, filename)
                     if os.path.isfile(img_path) and img_path.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')):
-                        images.append((img_path, subfolder))
+                        try:
+                            with open(img_path, 'rb') as f:
+                                img = mpimg.imread(f)
+                            images.append((img_path, subfolder))
+                        except (UnidentifiedImageError, OSError, SyntaxError):
+                            print(f"Überspringe ungültige Bilddatei: {img_path}")
         return images
 
     # Lade die Bilder
