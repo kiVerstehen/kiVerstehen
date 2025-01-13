@@ -15,6 +15,8 @@ import matplotlib.pyplot as plt
 import platform
 from PIL import Image, UnidentifiedImageError
 
+import random
+
 
  
 def aufgabe3():
@@ -37,17 +39,20 @@ def aufgabe3():
     def get_image(path, zoom=0.2):  # Angepasste Zoomstufe
         return OffsetImage(mpimg.imread(path), zoom=zoom)
 
+    
+
     # Funktion zum Berechnen und Plotten der Abstände zur Geraden
     def plot_with_distances(steigung=1.0, y_achsenabschnitt=0.0):#, save=False):
         fig, ax = plt.subplots()
 
+        """
         # Scatterplot für Katzen erstellen
         for i in range(len(cat_heights)):
             if cat_weights[i]>steigung*cat_heights[i] + y_achsenabschnitt:
                 ab = AnnotationBbox(get_image(cat_image_path_grey), (cat_heights[i], cat_weights[i]), frameon=False)
             else:
                 ab = AnnotationBbox(get_image(cat_image_path), (cat_heights[i], cat_weights[i]), frameon=False)
-            ax.add_artist(ab)
+            ax.add_artist(ab) 
         
         # Scatterplot für Hunde erstellen
         for i in range(len(dog_heights)):
@@ -55,7 +60,8 @@ def aufgabe3():
                 ab = AnnotationBbox(get_image(dog_image_path_grey), (dog_heights[i], dog_weights[i]), frameon=False)
             else:
                 ab = AnnotationBbox(get_image(dog_image_path), (dog_heights[i], dog_weights[i]), frameon=False)
-            ax.add_artist(ab)
+            ax.add_artist(ab) 
+        """
 
         # Gerade hinzufügen
         x_vals = np.linspace(10, 70, 100)  # Erzeuge 100 Werte zwischen 10 und 70
@@ -81,6 +87,11 @@ def aufgabe3():
                 total_distance_cats += distance
                 # Linie für distanz zeichnen
                 ax.plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
+                ab = AnnotationBbox(get_image(cat_image_path_grey), (cat_heights[i], cat_weights[i]), frameon=False)
+            else:
+                ab = AnnotationBbox(get_image(cat_image_path), (cat_heights[i], cat_weights[i]), frameon=False)
+            ax.add_artist(ab)
+            
 
         # Abstände für Hunde (unterhalb der Geraden)
         for i in range(len(dog_heights)):
@@ -90,6 +101,10 @@ def aufgabe3():
                 total_distance_dogs += distance
                 # Linie für distanz zeichnen
                 ax.plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
+                ab = AnnotationBbox(get_image(dog_image_path_grey), (dog_heights[i], dog_weights[i]), frameon=False)
+            else:
+                ab = AnnotationBbox(get_image(dog_image_path), (dog_heights[i], dog_weights[i]), frameon=False)
+            ax.add_artist(ab) 
 
         # Gesamtabstände ausgeben
         print(f'Gesamtdistanz der falsch kategorisierten Katzen: {total_distance_cats:.2f}')
@@ -103,10 +118,12 @@ def aufgabe3():
         
         plt.show()
 
-    # Interaktiver Plot mit anpassbarer Gerade und Möglichkeit, den Plot zu speichern
+    randomSteigung = random.uniform(-1,1)
+    randomY = random.uniform(10,50)
+    # Interaktiver Plot mit anpassbarer Gerade und Möglichkeit, den Plot zu speichern 
     interact(plot_with_distances, 
-            steigung=widgets.FloatSlider(min=-1, max=1, step=0.05, value=0.3),
-            y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=17.0))
+            steigung=widgets.FloatSlider(min=-1, max=1, step=0.05, value=randomSteigung),
+            y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=randomY))
             #,save=widgets.Checkbox(value=False, description='Plot speichern'))
     
 def aufgabe3b():
@@ -182,10 +199,12 @@ def aufgabe3b():
         
         plt.show()
 
+    randomSteigung = random.uniform(-1,1)
+    randomY = random.uniform(10,50)
     # Interaktiver Plot mit anpassbarer Gerade und Möglichkeit, den Plot zu speichern
     interact(plot_counting, 
-            steigung=widgets.FloatSlider(min=-1, max=1, step=0.05, value=0.3),
-            y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=17.0))
+            steigung=widgets.FloatSlider(min=-1, max=1, step=0.05, value=randomSteigung),
+            y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=randomY))
             #,save=widgets.Checkbox(value=False, description='Plot speichern'))
     
 
@@ -201,7 +220,9 @@ def aufgabe6():
 
     # Bilder laden
     cat_image_path = 'Grafiken/cathead.png'
+    cat_image_path_grey = 'Grafiken/cathead_grey.png'
     dog_image_path = 'Grafiken/doghead.png'
+    dog_image_path_grey = 'Grafiken/doghead_grey.png'
 
     def get_image(path, zoom=0.2):  # Angepasste Zoomstufe
         return OffsetImage(mpimg.imread(path), zoom=zoom)
@@ -210,6 +231,7 @@ def aufgabe6():
     def plot_with_new_function(w1=0.3, b1=17.0, w2=0.3, b2=17.0):#, save=False):
         fig, ax = plt.subplots()
 
+        """
         # Scatterplot für Katzen erstellen
         for i in range(len(cat_heights)):
             ab = AnnotationBbox(get_image(cat_image_path), (cat_heights[i], cat_weights[i]), frameon=False)
@@ -219,6 +241,7 @@ def aufgabe6():
         for i in range(len(dog_heights)):
             ab = AnnotationBbox(get_image(dog_image_path), (dog_heights[i], dog_weights[i]), frameon=False)
             ax.add_artist(ab)
+        """
 
         # Achsenbeschriftungen und -limits setzen
         ax.set_xlim(10, 68)
@@ -250,6 +273,10 @@ def aufgabe6():
                 total_distance_cats_above += distance
                 # Linie für distanz zeichnen
                 ax.plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
+                ab = AnnotationBbox(get_image(cat_image_path_grey), (cat_heights[i], cat_weights[i]), frameon=False)
+            else:
+                ab = AnnotationBbox(get_image(cat_image_path), (cat_heights[i], cat_weights[i]), frameon=False)
+            ax.add_artist(ab)
 
         # Abstände für Hunde
         for i in range(len(dog_heights)):
@@ -259,6 +286,10 @@ def aufgabe6():
                 total_distance_dogs_below += distance
                 # Linie für distanz zeichnen
                 ax.plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
+                ab = AnnotationBbox(get_image(dog_image_path_grey), (dog_heights[i], dog_weights[i]), frameon=False)
+            else:
+                ab = AnnotationBbox(get_image(dog_image_path), (dog_heights[i], dog_weights[i]), frameon=False)
+            ax.add_artist(ab) 
 
         # Gesamtabstände ausgeben
         print(f'Gesamtdistanz der falsch kategorisierten Katzen: {total_distance_cats_above:.2f}')
@@ -272,12 +303,16 @@ def aufgabe6():
         
         plt.show()
 
+    rw1=round(random.uniform(-2,1), 2)
+    rb1=round(random.uniform(0,50), 2)
+    rw2=round(random.uniform(-0.5,2), 2)
+    rb2=round(random.uniform(-10,20), 2)
     # Interaktiver Plot mit anpassbarer Funktion und Möglichkeit, den Plot zu speichern
     interact(plot_with_new_function, 
-            w1=widgets.FloatSlider(min=-2, max=1, step=0.05, value=0.-0.5),
-            b1=widgets.FloatSlider(min=0, max=50, step=0.05, value=25.0),
-            w2=widgets.FloatSlider(min=-0.5, max=2, step=0.05, value=0.3),
-            b2=widgets.FloatSlider(min=-10, max=20, step=0.05, value=13.0))
+            w1=widgets.FloatSlider(min=-2, max=1, step=0.05, value=rw1),
+            b1=widgets.FloatSlider(min=0, max=50, step=0.05, value=rb1),
+            w2=widgets.FloatSlider(min=-0.5, max=2, step=0.05, value=rw2),
+            b2=widgets.FloatSlider(min=-10, max=20, step=0.05, value=rb2))
             #,save=widgets.Checkbox(value=False, description='Plot speichern'))
 
 def aufgabe9(epochen=1000):
