@@ -17,9 +17,88 @@ from PIL import Image, UnidentifiedImageError
 
 import random
 
+def hundOderKatzeMitGeradeK1():
 
+    # Feste Werte für Größe (in cm) und Gewicht (in kg)
+    # Daten für Katzen
+    cat_heights = [20, 24, 31, 44, 50]  # Größe zwischen 22 und 30 cm
+    cat_weights = [30, 20, 15, 25, 30]  # Gewicht zwischen 4 und 8 kg
+
+    # Daten für Hunde
+    dog_heights = [18, 30, 35, 60, 45]  # Größe zwischen 45 und 65 cm
+    dog_weights = [37, 27, 35, 30, 38]  # Gewicht zwischen 15 und 35 kg
+
+    # Bilder laden
+    cat_image_path = 'Grafiken/cathead.png'
+    cat_image_path_grey = 'Grafiken/cathead_grey.png'
+    dog_image_path = 'Grafiken/doghead.png'
+    dog_image_path_grey = 'Grafiken/doghead_grey.png'
+
+    def get_image(path, zoom=0.2):  # Angepasste Zoomstufe
+        return OffsetImage(mpimg.imread(path), zoom=zoom)
+
+    # Funktion zum Berechnen und Plotten der Abstände zur Geraden
+    def plot_counting(steigung=1.0, y_achsenabschnitt=0.0):#, save=False):
+        fig, ax = plt.subplots()
+
+
+        # Scatterplot für Katzen erstellen und falsch kategorisierte Katzen zählen
+        cat_count = 0
+        for i in range(len(cat_heights)):
+            if cat_weights[i]>steigung*cat_heights[i] + y_achsenabschnitt:
+                ab = AnnotationBbox(get_image(cat_image_path_grey), (cat_heights[i], cat_weights[i]), frameon=False)
+                cat_count+=1
+            else:
+                ab = AnnotationBbox(get_image(cat_image_path), (cat_heights[i], cat_weights[i]), frameon=False)
+            ax.add_artist(ab)
+        
+        # Scatterplot für Hunde erstellen
+        dog_count = 0
+        for i in range(len(dog_heights)):
+            if dog_weights[i]<steigung*dog_heights[i] + y_achsenabschnitt:
+                ab = AnnotationBbox(get_image(dog_image_path_grey), (dog_heights[i], dog_weights[i]), frameon=False)
+                dog_count+=1
+            else:
+                ab = AnnotationBbox(get_image(dog_image_path), (dog_heights[i], dog_weights[i]), frameon=False)
+            ax.add_artist(ab)
+
+        # Gerade hinzufügen
+        x_vals = np.linspace(10, 70, 100)  # Erzeuge 100 Werte zwischen 10 und 70
+        y_vals = y_achsenabschnitt + steigung * x_vals  # Berechne die y-Werte basierend auf der Geradengleichung
+        ax.plot(x_vals, y_vals, '--', color='red', label=f'Gerade: y = {steigung:.2f}x + {y_achsenabschnitt:.2f}')
+
+        # Achsenbeschriftungen und -limits setzen
+        ax.set_xlim(10, 68)
+        ax.set_ylim(12, 42)
+        ax.set_xlabel('Größe (cm)')
+        ax.set_ylabel('Gewicht (kg)')
+        ax.legend()  # Legende hinzufügen
+
+        
+
+        
+
+        # Gesamtabstände ausgeben
+        print(f'Anzahl der falsch kategorisierten Katzen: {cat_count:.2f}')
+        print(f'Anzahl der falsch kategorisierten Hunde: {dog_count:.2f}')
+        print(f'Kostenfunktion - Summe beider Werte:  {cat_count+dog_count:.2f}')
+
+        # Speichere den Plot als Bilddatei, wenn gewünscht
+        """if save:
+            plt.savefig('aufgabe3.png', dpi=300, bbox_inches='tight')  # Speicher als PNG
+            print("Plot gespeichert als 'aufgabe3.png'")"""
+        
+        plt.show()
+
+    randomSteigung = random.uniform(-1,1)
+    randomY = random.uniform(10,50)
+    # Interaktiver Plot mit anpassbarer Gerade und Möglichkeit, den Plot zu speichern
+    interact(plot_counting, 
+            steigung=widgets.FloatSlider(min=-1, max=1, step=0.05, value=randomSteigung),
+            y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=randomY))
+            #,save=widgets.Checkbox(value=False, description='Plot speichern'))
  
-def aufgabe4():
+def hundOderKatzeMitGeradeK2():
 
     # Feste Werte für Größe (in cm) und Gewicht (in kg)
     # Daten für Katzen
@@ -126,89 +205,10 @@ def aufgabe4():
             y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=randomY))
             #,save=widgets.Checkbox(value=False, description='Plot speichern'))
     
-def aufgabe3():
 
-    # Feste Werte für Größe (in cm) und Gewicht (in kg)
-    # Daten für Katzen
-    cat_heights = [20, 24, 31, 44, 50]  # Größe zwischen 22 und 30 cm
-    cat_weights = [30, 20, 15, 25, 30]  # Gewicht zwischen 4 und 8 kg
-
-    # Daten für Hunde
-    dog_heights = [18, 30, 35, 60, 45]  # Größe zwischen 45 und 65 cm
-    dog_weights = [37, 27, 35, 30, 38]  # Gewicht zwischen 15 und 35 kg
-
-    # Bilder laden
-    cat_image_path = 'Grafiken/cathead.png'
-    cat_image_path_grey = 'Grafiken/cathead_grey.png'
-    dog_image_path = 'Grafiken/doghead.png'
-    dog_image_path_grey = 'Grafiken/doghead_grey.png'
-
-    def get_image(path, zoom=0.2):  # Angepasste Zoomstufe
-        return OffsetImage(mpimg.imread(path), zoom=zoom)
-
-    # Funktion zum Berechnen und Plotten der Abstände zur Geraden
-    def plot_counting(steigung=1.0, y_achsenabschnitt=0.0):#, save=False):
-        fig, ax = plt.subplots()
-
-
-        # Scatterplot für Katzen erstellen und falsch kategorisierte Katzen zählen
-        cat_count = 0
-        for i in range(len(cat_heights)):
-            if cat_weights[i]>steigung*cat_heights[i] + y_achsenabschnitt:
-                ab = AnnotationBbox(get_image(cat_image_path_grey), (cat_heights[i], cat_weights[i]), frameon=False)
-                cat_count+=1
-            else:
-                ab = AnnotationBbox(get_image(cat_image_path), (cat_heights[i], cat_weights[i]), frameon=False)
-            ax.add_artist(ab)
-        
-        # Scatterplot für Hunde erstellen
-        dog_count = 0
-        for i in range(len(dog_heights)):
-            if dog_weights[i]<steigung*dog_heights[i] + y_achsenabschnitt:
-                ab = AnnotationBbox(get_image(dog_image_path_grey), (dog_heights[i], dog_weights[i]), frameon=False)
-                dog_count+=1
-            else:
-                ab = AnnotationBbox(get_image(dog_image_path), (dog_heights[i], dog_weights[i]), frameon=False)
-            ax.add_artist(ab)
-
-        # Gerade hinzufügen
-        x_vals = np.linspace(10, 70, 100)  # Erzeuge 100 Werte zwischen 10 und 70
-        y_vals = y_achsenabschnitt + steigung * x_vals  # Berechne die y-Werte basierend auf der Geradengleichung
-        ax.plot(x_vals, y_vals, '--', color='red', label=f'Gerade: y = {steigung:.2f}x + {y_achsenabschnitt:.2f}')
-
-        # Achsenbeschriftungen und -limits setzen
-        ax.set_xlim(10, 68)
-        ax.set_ylim(12, 42)
-        ax.set_xlabel('Größe (cm)')
-        ax.set_ylabel('Gewicht (kg)')
-        ax.legend()  # Legende hinzufügen
-
-        
-
-        
-
-        # Gesamtabstände ausgeben
-        print(f'Anzahl der falsch kategorisierten Katzen: {cat_count:.2f}')
-        print(f'Anzahl der falsch kategorisierten Hunde: {dog_count:.2f}')
-        print(f'Kostenfunktion - Summe beider Werte:  {cat_count+dog_count:.2f}')
-
-        # Speichere den Plot als Bilddatei, wenn gewünscht
-        """if save:
-            plt.savefig('aufgabe3.png', dpi=300, bbox_inches='tight')  # Speicher als PNG
-            print("Plot gespeichert als 'aufgabe3.png'")"""
-        
-        plt.show()
-
-    randomSteigung = random.uniform(-1,1)
-    randomY = random.uniform(10,50)
-    # Interaktiver Plot mit anpassbarer Gerade und Möglichkeit, den Plot zu speichern
-    interact(plot_counting, 
-            steigung=widgets.FloatSlider(min=-1, max=1, step=0.05, value=randomSteigung),
-            y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=randomY))
-            #,save=widgets.Checkbox(value=False, description='Plot speichern'))
     
 
-def aufgabe10():
+def hundOderKatzeZweiNeuronen():
     # Feste Werte für Größe (in cm) und Gewicht (in kg)
     # Daten für Katzen
     cat_heights = [20, 24, 31, 44, 50]  # Größe zwischen 20 und 50 cm
@@ -315,7 +315,69 @@ def aufgabe10():
             b2=widgets.FloatSlider(min=-10, max=20, step=0.05, value=rb2))
             #,save=widgets.Checkbox(value=False, description='Plot speichern'))
 
-def aufgabe9(epochen=1000):
+def hundOderKatzeNNtesten(größe=50,gewicht=10):
+
+    class SimpleNN(nn.Module):
+        def __init__(self):
+            super(SimpleNN, self).__init__()
+            self.fc1 = nn.Linear(2, 10)
+            self.fc2 = nn.Linear(10, 10)
+            self.fc3 = nn.Linear(10, 10)
+            self.fc4 = nn.Linear(10, 10)
+            self.fc5 = nn.Linear(10, 10)
+            self.fc6 = nn.Linear(10, 10)
+            self.fc7 = nn.Linear(10, 10)
+            self.fc8 = nn.Linear(10, 10)
+            self.fc9 = nn.Linear(10, 10)
+            self.fc10 = nn.Linear(10, 10)
+            self.fc11 = nn.Linear(10, 10)
+            self.fc12 = nn.Linear(10, 10)
+            self.fc13 = nn.Linear(10, 10)
+            self.fc14 = nn.Linear(10, 10)
+            self.fc15 = nn.Linear(10, 10)
+            self.fc16 = nn.Linear(10, 10)
+            self.fc17 = nn.Linear(10, 10)
+            self.fc18 = nn.Linear(10, 10)
+            self.fc19 = nn.Linear(10, 10)
+            self.fc20 = nn.Linear(10, 1)
+            self.relu = nn.ReLU()
+            self.sigmoid = nn.Sigmoid()
+
+        def forward(self, x):
+            x = self.relu(self.fc1(x))
+            x = self.relu(self.fc2(x))
+            x = self.relu(self.fc3(x))
+            x = self.relu(self.fc4(x))
+            x = self.relu(self.fc5(x))
+            x = self.relu(self.fc6(x))
+            x = self.relu(self.fc7(x))
+            x = self.relu(self.fc8(x))
+            x = self.relu(self.fc9(x))
+            x = self.relu(self.fc10(x))
+            x = self.relu(self.fc11(x))
+            x = self.relu(self.fc12(x))
+            x = self.relu(self.fc13(x))
+            x = self.relu(self.fc14(x))
+            x = self.relu(self.fc15(x))
+            x = self.relu(self.fc16(x))
+            x = self.relu(self.fc17(x))
+            x = self.relu(self.fc18(x))
+            x = self.relu(self.fc19(x))
+            x = self.sigmoid(self.fc20(x))
+            return x
+
+    # Modell laden
+    model_path="Beispiel-Modelle/Modelle/katzeOderHundGrößeGewicht.pth"
+    model = SimpleNN()  # Initialisiere das Modell
+    model.load_state_dict(torch.load(model_path, weights_only=True))
+    model.eval()  # Setze das Modell in den Evaluationsmodus
+    #print("Modell erfolgreich geladen!")
+    # Beispielvorhersage
+    test_data = torch.tensor([[größe, gewicht]], dtype=torch.float32)  # Größe und Gewicht
+    prediction = model(test_data)
+    print(f"Vorhersage für {größe} kg und {gewicht} cm: {prediction.item():.4f}")
+
+def hundOderKatzeNNtrainieren(epochen=1000):
     # Originaldaten
     cat_heights = np.array([20, 24, 31, 44, 50], dtype=np.float32).reshape(-1, 1)
     cat_weights = np.array([30, 20, 15, 25, 30], dtype=np.float32).reshape(-1, 1)
