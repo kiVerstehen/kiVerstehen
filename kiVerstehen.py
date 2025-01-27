@@ -19,7 +19,7 @@ import random
 
 
  
-def aufgabe3():
+def aufgabe4():
 
     # Feste Werte für Größe (in cm) und Gewicht (in kg)
     # Daten für Katzen
@@ -126,7 +126,7 @@ def aufgabe3():
             y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=randomY))
             #,save=widgets.Checkbox(value=False, description='Plot speichern'))
     
-def aufgabe3b():
+def aufgabe3():
 
     # Feste Werte für Größe (in cm) und Gewicht (in kg)
     # Daten für Katzen
@@ -208,7 +208,7 @@ def aufgabe3b():
             #,save=widgets.Checkbox(value=False, description='Plot speichern'))
     
 
-def aufgabe6():
+def aufgabe10():
     # Feste Werte für Größe (in cm) und Gewicht (in kg)
     # Daten für Katzen
     cat_heights = [20, 24, 31, 44, 50]  # Größe zwischen 20 und 50 cm
