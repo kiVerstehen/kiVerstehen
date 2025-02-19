@@ -1,3 +1,1 @@
-Öffne das interaktive Jupyter Notebook, indem du auf das Binder-Logo klickst!
-
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Marcelknapp/kiVerstehen/main?labpath=kiVerstehen.ipynb)
+Teste das interaktive Jupyter Notebook über folgenden Link: https://colab.research.google.com/github/kiVerstehen/kiVerstehen/blob/main/kiVerstehen.ipynb
