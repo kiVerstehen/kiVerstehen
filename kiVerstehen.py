@@ -81,7 +81,7 @@ def hundOderKatzeMitGeradeK1():
         # Gesamtabstände ausgeben
         print(f'Anzahl der falsch kategorisierten Katzen: {cat_count:.2f}')
         print(f'Anzahl der falsch kategorisierten Hunde: {dog_count:.2f}')
-        print(f'Kostenfunktion - Summe beider Werte:  {cat_count+dog_count:.2f}')
+        print(f'Verlustfunktion - Summe beider Werte:  {cat_count+dog_count:.2f}')
 
         # Speichere den Plot als Bilddatei, wenn gewünscht
         """if save:
@@ -188,7 +188,7 @@ def hundOderKatzeMitGeradeK2():
         # Gesamtabstände ausgeben
         print(f'Gesamtdistanz der falsch kategorisierten Katzen: {total_distance_cats:.2f}')
         print(f'Gesamtdistanz der falsch kategorisierten Hunde: {total_distance_dogs:.2f}')
-        print(f'Kostenfunktion - Summe beider Werte:  {total_distance_cats+total_distance_dogs:.2f}')
+        print(f'Verlustfunktion - Summe beider Werte:  {total_distance_cats+total_distance_dogs:.2f}')
 
         # Speichere den Plot als Bilddatei, wenn gewünscht
         """if save:
@@ -294,7 +294,7 @@ def hundOderKatzeZweiNeuronen():
         # Gesamtabstände ausgeben
         print(f'Gesamtdistanz der falsch kategorisierten Katzen: {total_distance_cats_above:.2f}')
         print(f'Gesamtdistanz der falsch kategorisierten Hunde: {total_distance_dogs_below:.2f}')
-        print(f'Kostenfunktion - Summe beider Werte: {total_distance_cats_above + total_distance_dogs_below:.2f}')
+        print(f'Verlustfunktion - Summe beider Werte: {total_distance_cats_above + total_distance_dogs_below:.2f}')
 
         # Speichere den Plot als Bilddatei, wenn gewünscht
         """if save:
@@ -486,7 +486,7 @@ def hundOderKatzeNNtrainieren(epochen=1000):
             optimizer.step()
 
             if (epoch + 1) % 100 == 0:
-                print(f'Epoche [{epoch+1}/{epochs}], Kosten: {loss.item():.4f}')
+                print(f'Epoche [{epoch+1}/{epochs}], Verlust: {loss.item():.4f}')
                 
 
     train_model(model, data_tensor, labels_tensor)
