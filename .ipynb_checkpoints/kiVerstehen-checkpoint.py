@@ -79,19 +79,13 @@ def hundOderKatzeAnhandGewicht():
         ax.set_ylabel('Gewicht (kg)')
         ax.legend()  # Legende hinzufügen
 
-        # Speichere den Plot als Bilddatei, wenn gewünscht
-        """if save:
-            plt.savefig('aufgabe3.png', dpi=300, bbox_inches='tight')  # Speicher als PNG
-            print("Plot gespeichert als 'aufgabe3.png'")"""
-        
         plt.show()
 
     #randomSteigung = random.uniform(-1,1)
     randomY = random.uniform(10,50)
-    # Interaktiver Plot mit anpassbarer Gerade und Möglichkeit, den Plot zu speichern
-    interact(plot_counting, 
-            y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=randomY))
-            #,save=widgets.Checkbox(value=False, description='Plot speichern'))
+    # Interaktiver Plot mit anpassbarer Gerade
+    w = interact(plot_counting, y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=randomY))
+           
 
 def hundOderKatzeMitGerade():
 
@@ -114,7 +108,7 @@ def hundOderKatzeMitGerade():
         return OffsetImage(mpimg.imread(path), zoom=zoom)
 
     # Funktion zum Berechnen und Plotten der Abstände zur Geraden
-    def plot_counting(steigung=1.0, y_achsenabschnitt=0.0):#, save=False):
+    def plot_counting(steigung=1.0, y_achsenabschnitt=0.0):
         fig, ax = plt.subplots()
 
 
@@ -149,16 +143,6 @@ def hundOderKatzeMitGerade():
         ax.set_xlabel('Größe (cm)')
         ax.set_ylabel('Gewicht (kg)')
         ax.legend()  # Legende hinzufügen   
-
-        # Gesamtabstände ausgeben
-        #print(f'Anzahl der falsch kategorisierten Katzen: {cat_count:.2f}')
-        #print(f'Anzahl der falsch kategorisierten Hunde: {dog_count:.2f}')
-        #print(f'Verlustfunktion - Summe beider Werte:  {cat_count+dog_count:.2f}')
-
-        # Speichere den Plot als Bilddatei, wenn gewünscht
-        """if save:
-            plt.savefig('aufgabe3.png', dpi=300, bbox_inches='tight')  # Speicher als PNG
-            print("Plot gespeichert als 'aufgabe3.png'")"""
         
         plt.show()
 
@@ -168,7 +152,7 @@ def hundOderKatzeMitGerade():
     interact(plot_counting, 
             steigung=widgets.FloatSlider(min=-1, max=1, step=0.05, value=randomSteigung),
             y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=randomY))
-            #,save=widgets.Checkbox(value=False, description='Plot speichern'))
+         
 
 
 def hundOderKatzeMitGeradeV1():
@@ -228,20 +212,11 @@ def hundOderKatzeMitGeradeV1():
         ax.set_ylabel('Gewicht (kg)')
         ax.legend()  # Legende hinzufügen
 
-        
-
-        
-
         # Gesamtabstände ausgeben
         print(f'Anzahl der falsch kategorisierten Katzen: {cat_count:.2f}')
         print(f'Anzahl der falsch kategorisierten Hunde: {dog_count:.2f}')
         print(f'Verlustfunktion - Summe beider Werte:  {cat_count+dog_count:.2f}')
 
-        # Speichere den Plot als Bilddatei, wenn gewünscht
-        """if save:
-            plt.savefig('aufgabe3.png', dpi=300, bbox_inches='tight')  # Speicher als PNG
-            print("Plot gespeichert als 'aufgabe3.png'")"""
-        
         plt.show()
 
     randomSteigung = random.uniform(-1,1)
@@ -250,7 +225,6 @@ def hundOderKatzeMitGeradeV1():
     interact(plot_counting, 
             steigung=widgets.FloatSlider(min=-1, max=1, step=0.05, value=randomSteigung),
             y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=randomY))
-            #,save=widgets.Checkbox(value=False, description='Plot speichern'))
  
 def hundOderKatzeMitGeradeV2_rect():
 
@@ -337,11 +311,6 @@ def hundOderKatzeMitGeradeV2_rect():
         print(f'Abstand der falsch kategorisierten Hunde zur Geraden: {total_distance_dogs:.2f}')
         print(f'Verlustfunktion - Summe der Abstände:  {total_distance_cats+total_distance_dogs:.2f}')
 
-        # Speichere den Plot als Bilddatei, wenn gewünscht
-        """if save:
-            plt.savefig('aufgabe3.png', dpi=300, bbox_inches='tight')  # Speicher als PNG
-            print("Plot gespeichert als 'aufgabe3.png'")"""
-        
         plt.show()
 
     randomSteigung = random.uniform(-1,1)
@@ -350,7 +319,7 @@ def hundOderKatzeMitGeradeV2_rect():
     interact(plot_with_distances, 
             steigung=widgets.FloatSlider(min=-1, max=1, step=0.05, value=randomSteigung),
             y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=randomY))
-            #,save=widgets.Checkbox(value=False, description='Plot speichern'))
+
     
 def hundOderKatzeMitGeradeV2():
 
@@ -372,10 +341,8 @@ def hundOderKatzeMitGeradeV2():
     def get_image(path, zoom=0.2):  # Angepasste Zoomstufe
         return OffsetImage(mpimg.imread(path), zoom=zoom)
 
-    
-
     # Funktion zum Berechnen und Plotten der Abstände zur Geraden
-    def plot_with_distances(steigung=1.0, y_achsenabschnitt=0.0):#, save=False):
+    def plot_with_distances(steigung=1.0, y_achsenabschnitt=0.0):
         fig, ax = plt.subplots()
 
 
@@ -427,11 +394,6 @@ def hundOderKatzeMitGeradeV2():
         print(f'Gewichtsdifferenzen der falsch kategorisierten Hunde: {total_distance_dogs:.2f}')
         print(f'Verlustfunktion - Summe beider Werte:  {total_distance_cats+total_distance_dogs:.2f}')
 
-        # Speichere den Plot als Bilddatei, wenn gewünscht
-        """if save:
-            plt.savefig('aufgabe3.png', dpi=300, bbox_inches='tight')  # Speicher als PNG
-            print("Plot gespeichert als 'aufgabe3.png'")"""
-        
         plt.show()
 
     randomSteigung = random.uniform(-1,1)
@@ -440,7 +402,6 @@ def hundOderKatzeMitGeradeV2():
     interact(plot_with_distances, 
             steigung=widgets.FloatSlider(min=-1, max=1, step=0.05, value=randomSteigung),
             y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=randomY))
-            #,save=widgets.Checkbox(value=False, description='Plot speichern'))
 
 def krankenkassen(krankenkasse):
 
@@ -463,10 +424,8 @@ def krankenkassen(krankenkasse):
     def get_image(path, zoom=0.07):  # Angepasste Zoomstufe
         return OffsetImage(mpimg.imread(path), zoom=zoom)
 
-    
-
     # Funktion zum Berechnen und Plotten der Abstände zur Geraden
-    def plot_with_distances(steigung=1.0, y_achsenabschnitt=0.0):#, save=False):
+    def plot_with_distances(steigung=1.0, y_achsenabschnitt=0.0):
         fig, ax = plt.subplots()
 
 
@@ -517,10 +476,6 @@ def krankenkassen(krankenkasse):
         print(f'Gewichtsdifferenzen der falsch kategorisierten gesunden Personen: {total_distance_cats:.2f}')
         print(f'Gewichtsdifferenzen der falsch kategorisierten kranken Personen: {total_distance_dogs:.2f}')
 
-        # Speichere den Plot als Bilddatei, wenn gewünscht
-        """if save:
-            plt.savefig('aufgabe3.png', dpi=300, bbox_inches='tight')  # Speicher als PNG
-            print("Plot gespeichert als 'aufgabe3.png'")"""
         plt.title(krankenkasse)
         plt.show()
 
@@ -533,7 +488,7 @@ def krankenkassen(krankenkasse):
             #,save=widgets.Checkbox(value=False, description='Plot speichern'))
 
 def zweiGeraden():
-    def plot_with_new_function(w1=0.3, b1=17.0, w2=0.3, b2=17.0):#, save=False):
+    def plot_with_new_function(w1=0.3, b1=17.0, w2=0.3, b2=17.0):
         fig, ax = plt.subplots()
 
         # Neue Funktion definieren
@@ -549,10 +504,6 @@ def zweiGeraden():
         ax.plot(x_vals, w2 * x_vals + b2, '--', color='grey', label=f'{w2} * x + {b2}')
         ax.legend()  # Legende aktualisieren
 
-        """if save:
-            plt.savefig('aufgabe6.png', dpi=300, bbox_inches='tight')  # Speicher als PNG
-            print("Plot gespeichert als 'aufgabe6.png'")"""
-        
         plt.show()
 
     rw1=round(random.uniform(-2,2), 2)
@@ -565,10 +516,10 @@ def zweiGeraden():
             b1=widgets.FloatSlider(min=-50, max=50, step=0.05, value=rb1),
             w2=widgets.FloatSlider(min=-2, max=2, step=0.05, value=rw2),
             b2=widgets.FloatSlider(min=-50, max=50, step=0.05, value=rb2))
-            #,save=widgets.Checkbox(value=False, description='Plot speichern'))
+
 
 def einNeuron():
-    def plot_with_new_function(w1=0.3, b1=17.0):#, save=False):
+    def plot_with_new_function(w1=0.3, b1=17.0):
         fig, ax = plt.subplots()
 
         # Neue Funktion definieren
@@ -595,7 +546,7 @@ def einNeuron():
             b1=widgets.FloatSlider(min=-50, max=50, step=0.05, value=rb1))
 
 def zweiNeuronen():
-    def plot_with_new_function(w1=0.3, b1=17.0, w2=0.3, b2=17.0):#, save=False):
+    def plot_with_new_function(w1=0.3, b1=17.0, w2=0.3, b2=17.0):
         fig, ax = plt.subplots()
 
         # Neue Funktion definieren
@@ -648,20 +599,8 @@ def hundOderKatzeZweiNeuronen():
         return OffsetImage(mpimg.imread(path), zoom=zoom)
 
     # Funktion zum Berechnen und Plotten der Abstände zur neuen Funktion
-    def plot_with_new_function(w1=0.3, b1=17.0, w2=0.3, b2=17.0):#, save=False):
+    def plot_with_new_function(w1=0.3, b1=17.0, w2=0.3, b2=17.0):
         fig, ax = plt.subplots()
-
-        """
-        # Scatterplot für Katzen erstellen
-        for i in range(len(cat_heights)):
-            ab = AnnotationBbox(get_image(cat_image_path), (cat_heights[i], cat_weights[i]), frameon=False)
-            ax.add_artist(ab)
-        
-        # Scatterplot für Hunde erstellen
-        for i in range(len(dog_heights)):
-            ab = AnnotationBbox(get_image(dog_image_path), (dog_heights[i], dog_weights[i]), frameon=False)
-            ax.add_artist(ab)
-        """
 
         # Achsenbeschriftungen und -limits setzen
         ax.set_xlim(10, 68)
@@ -715,11 +654,6 @@ def hundOderKatzeZweiNeuronen():
         print(f'Gewichtsdifferenzen der falsch kategorisierten Katzen: {total_distance_cats_above:.2f}')
         print(f'Gewichtsdifferenzen der falsch kategorisierten Hunde: {total_distance_dogs_below:.2f}')
         print(f'Verlustfunktion - Summe beider Werte: {total_distance_cats_above + total_distance_dogs_below:.2f}')
-
-        # Speichere den Plot als Bilddatei, wenn gewünscht
-        """if save:
-            plt.savefig('aufgabe6.png', dpi=300, bbox_inches='tight')  # Speicher als PNG
-            print("Plot gespeichert als 'aufgabe6.png'")"""
         
         plt.show()
 
@@ -795,7 +729,12 @@ def hundOderKatzeNNtesten(größe=50,gewicht=10):
     # Beispielvorhersage
     test_data = torch.tensor([[größe, gewicht]], dtype=torch.float32)  # Größe und Gewicht
     prediction = model(test_data)
-    print(f"Vorhersage für {größe} kg und {gewicht} cm: {prediction.item():.4f}")
+    hundchance = round(prediction.item(),3)
+    katzchance = 1 - hundchance
+    print(f"Vorhersage für {größe} kg und {gewicht} cm:")
+    print(f"Hund:  {hundchance}")
+    print(f"Katze: {katzchance}")
+    
 
 def hundOderKatzeNNtrainieren(epochen=1000):
     # Originaldaten
@@ -932,6 +871,7 @@ def hundOderKatzeNNtrainieren(epochen=1000):
         plt.colorbar(contour, ticks=np.linspace(0, 1, 11))
         
         # Achsenbeschriftungen und Titel setzen
+        # plt.title('Wahrscheinlichkeit Hund')
         plt.xlabel('Größe (cm)')
         plt.ylabel('Gewicht (kg)')
         #plt.title('Scatterplot von Katzen und Hunden mit Entscheidunggrenze')
@@ -944,11 +884,6 @@ def zeigeBeispielBilder(projektname):
     #laden der bilder in fns
     path = Path(f'Beispiel-Modelle/{projektName}')
     fns = get_image_files(path)
-    #gibt liste von failed downloaded images
-    #failed = verify_images(fns)
-    #print(f"Es gab {len(failed)} fehlerhafte Downloads. Ich behebe das automatisch!")
-    #unlink the failed downloaded images
-    #failed.map(Path.unlink)
     daten = DataBlock(
     blocks=(ImageBlock, CategoryBlock), 
     get_items=get_image_files, 
@@ -958,15 +893,14 @@ def zeigeBeispielBilder(projektname):
     dls = daten.dataloaders(path)
     dls.valid.show_batch(max_n=8, nrows=2)
 
-def testeBildInModell(bildname):
-    
-    warnings.filterwarnings("ignore")
-    projektname = 'hund oder katze'
+def testeBildInModell(projektname, bildname):
+
     def andereKat(zahl):
         if zahl==tensor(1): return tensor(0)
         if zahl==tensor(0): return tensor(1)
 
-    im = Image.open(f'Testbilder/{bildname}')
+    im = Image.open(f'Beispiel-Modelle/Testbilder/{bildname}')
+    #frag das Modell, ob es sich beim Bild um x oder y handelt.
     
     #load pkl-model
     if platform.system() == "Linux":
@@ -975,8 +909,7 @@ def testeBildInModell(bildname):
         learn_inf = load_learner(f'Beispiel-Modelle/Modelle/{projektname}.pkl')
     
     #predict for image 'blabla.jpeg'
-    pred,pred_idx,probs = learn_inf.predict(f'Testbilder/{bildname}')
-    
+    pred,pred_idx,probs = learn_inf.predict(f'Beispiel-Modelle/Testbilder/{bildname}')
     #gebe die prediction aus
     print(f'Das Bild ist zu {probs[pred_idx]*100:.2f}% {learn_inf.dls.vocab[pred_idx].capitalize()} und zu {100-probs[pred_idx]*100:.2f}% {learn_inf.dls.vocab[andereKat(pred_idx)].capitalize()}.')
     return im.to_thumb(256,256)
@@ -1119,21 +1052,6 @@ def beispielbilderAnzeigen(num_cols=5, figsize=(9, 2)):
     plt.tight_layout()
     return plt.show()
 
-def welcheVerlustfunktionIstBesser(secs):
-    val="Ich fühle mich sehr geschmeichelt.\n" \
-    "Mir persönlich gefällt der zweite Ansatz am besten, um die Parameter bei der Suche nach der besten Lösung einzustellen.\n" \
-    "Wird ein Parameter verändert, dann zeigt sich das direkt in einer Veränderung des Werts der Verlustfunktion.\n" \
-    "Ich kann also direkt nachvollziehen, ob die Parameteränderung mich in die richtige Richtung führt.\n" \
-    "Da sich die zweite Verlustfunktion bei Parameteränderungen stetig ändert, wird sie auch als "+make_bold("stetige Funktion")+" bezeichnet.\n" \
-    "Die erste Verlustfunktion ist stattdessen unstetig. Hier ändert sich der Wert sprunghaft."
-    temp_print(val,secs)
-
-def wiesoKannManNichtEinfach2GeradenAddieren(secs):
-    val="Die Geradengleichung einfach zu addieren klappt nicht.\n" \
-    "Wenn wir die Gleichung y=w1*x+b1+w2*x+b2 umformen, erhalten wir folgendes Ergebnis:\n" \
-    "y=(w1+w2)*x+(b1+b2) \n" \
-    "Und das ist die Gleichung einer neuen Geraden mit einer neuen Steigung w=w1+w2 und dem y-Achsenabschnitt b=b1+b2"
-    temp_print(val,secs)
 
 def temp_print(val,secs):
     print(val)
