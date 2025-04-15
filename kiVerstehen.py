@@ -1061,3 +1061,22 @@ def temp_print(val,secs):
 def make_bold(string):
     return "\033[1m"+string+"\033[0;0m"
 
+
+def zeitlimit(minuten):
+    for i in range(minuten*60, 0, -1):
+        clear_output(wait=True)
+        if i//60!=1 and i%60!=1:
+            print(f"Zeit über: {i//60} Minuten und {i%60} Sekunden")
+        elif i//60==1 and i%60!=1:
+            print(f"Zeit über: {i//60} Minute und {i%60} Sekunden")
+        elif i//60!=1 and i%60==1:
+            print(f"Zeit über: {i//60} Minuten und {i%60} Sekunde")
+        elif i//60==1 and i%60==1:
+            print(f"Zeit über: {i//60} Minute und {i%60} Sekunde")
+        time.sleep(1)
+    clear_output(wait=True)
+    print("Zeit um!")
+    time.sleep(2)
+    clear_output(wait=False)
+
+
