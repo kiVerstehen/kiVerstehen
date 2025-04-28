@@ -39,7 +39,7 @@ def hundOderKatzeAnhandGewicht():
     dog_heights = [18, 30, 35, 60, 45]
     dog_weights = [37, 27, 35, 30, 38]
 
-    # ✅ Load images ONCE as arrays (fast and reusable)
+    #Load images ONCE as arrays (fast and reusable)
     cat_img_arr = mpimg.imread('Grafiken/cathead.png')
     cat_img_grey_arr = mpimg.imread('Grafiken/cathead_grey.png')
     dog_img_arr = mpimg.imread('Grafiken/doghead.png')
@@ -918,7 +918,8 @@ def testeBildInModell(projektname, bildname):
         learn_inf = load_learner(f'Beispiel-Modelle/Modelle/{projektname}.pkl')
     
     #predict for image 'blabla.jpeg'
-    pred,pred_idx,probs = learn_inf.predict(f'Beispiel-Modelle/Testbilder/{bildname}')
+    img = PILImage.create(f'Beispiel-Modelle/Testbilder/{bildname}') 
+    pred,pred_idx,probs = learn_inf.predict(img)
     #gebe die prediction aus
     print(f'Das Bild ist zu {probs[pred_idx]*100:.2f}% {learn_inf.dls.vocab[pred_idx].capitalize()} und zu {100-probs[pred_idx]*100:.2f}% {learn_inf.dls.vocab[andereKat(pred_idx)].capitalize()}.')
     return im.to_thumb(256,256)

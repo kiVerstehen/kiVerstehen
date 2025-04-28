@@ -75,7 +75,7 @@ gewicht = int(left.text_input("Gewicht", "10"))
 größe = int(left.text_input("Größe", "50"))
 
 
-if left.button("Roboter fragen", icon="🤖", use_container_width=True):
+if left.button("KI fragen", icon="🤖", use_container_width=True):
     hundchance,katzchance = hundOderKatzeNNtesten(größe,gewicht)
     left.markdown(f"Vorhersage für **{gewicht} kg** und **{größe} cm**:")
     left.markdown(f"**Hund**:  {hundchance}")

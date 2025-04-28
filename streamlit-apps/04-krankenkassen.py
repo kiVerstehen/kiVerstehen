@@ -95,7 +95,7 @@ def plot_counting(steigung=1.0, y_achsenabschnitt=0.0):
     ax.legend()
 
     
-    st.table([["Gewichtsdifferenzen der falsch kategorisierten Gesunden",f"{total_distance_cats:.2f}"],["Gewichtsdifferenzen der falsch kategorisierten Kranken",f"{total_distance_dogs:.2f}"],["**Verlust**", f"**{total_distance_cats+total_distance_dogs:.2f}**"]])
+    st.table([["Gewichtsdifferenzen der falsch kategorisierten Gesunden",f"{total_distance_cats:.2f}"],["Gewichtsdifferenzen der falsch kategorisierten Kranken",f"{total_distance_dogs:.2f}"]])
 
     st.pyplot(fig)
 

@@ -20,7 +20,8 @@ def testeBildInModell(projektname, bildname):
         learn_inf = load_learner(f'../Beispiel-Modelle/Modelle/{projektname}.pkl')
     
     #predict for image 'blabla.jpeg'
-    pred,pred_idx,probs = learn_inf.predict(f'../Beispiel-Modelle/Testbilder/{bildname}')
+    img = PILImage.create(f'../Beispiel-Modelle/Testbilder/{bildname}') 
+    pred,pred_idx,probs = learn_inf.predict(img)
     #gebe die prediction aus
     #print(f'Das Bild ist zu {probs[pred_idx]*100:.2f}% {learn_inf.dls.vocab[pred_idx].capitalize()} und zu {100-probs[pred_idx]*100:.2f}% {learn_inf.dls.vocab[andereKat(pred_idx)].capitalize()}.')
     
@@ -57,7 +58,7 @@ elif modell=="cool oder uncool":
 
 
 
-if middle.button("Roboter fragen", icon="🤖", use_container_width=True):
+if middle.button("KI fragen", icon="🤖", use_container_width=True):
     #st.text(modell + testpics)
     proKat1, dic1, proKat2, dic2 = testeBildInModell(modell, testpics)
     middle.image(f'../Beispiel-Modelle/Testbilder/{testpics}', width=500)
