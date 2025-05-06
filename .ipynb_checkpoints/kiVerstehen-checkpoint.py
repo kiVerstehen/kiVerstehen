@@ -107,51 +107,53 @@ def hundOderKatzeMitGerade():
     dog_heights = [18, 30, 35, 60, 45]  # Größe zwischen 45 und 65 cm
     dog_weights = [37, 27, 35, 30, 38]  # Gewicht zwischen 15 und 35 kg
 
-    # Bilder laden
-    cat_image_path = 'Grafiken/cathead.png'
-    cat_image_path_grey = 'Grafiken/cathead_grey.png'
-    dog_image_path = 'Grafiken/doghead.png'
-    dog_image_path_grey = 'Grafiken/doghead_grey.png'
+    # Lade Bilder EINMAL als Arrays (schnell und wiederverwendbar)
+    cat_img_arr = mpimg.imread('Grafiken/cathead.png')
+    cat_img_grey_arr = mpimg.imread('Grafiken/cathead_grey.png')
+    dog_img_arr = mpimg.imread('Grafiken/doghead.png')
+    dog_img_grey_arr = mpimg.imread('Grafiken/doghead_grey.png')
 
-    def get_image(path, zoom=0.2):  # Angepasste Zoomstufe
-        return OffsetImage(mpimg.imread(path), zoom=zoom)
+    def get_image_from_array(arr, zoom=0.2):
+        return OffsetImage(arr, zoom=zoom)
 
-    # Funktion zum Berechnen und Plotten der Abstände zur Geraden
     def plot_counting(steigung=1.0, y_achsenabschnitt=0.0):
         fig, ax = plt.subplots()
 
-
-        # Scatterplot für Katzen erstellen und falsch kategorisierte Katzen zählen
+        # Plot Cats
         cat_count = 0
         for i in range(len(cat_heights)):
-            if cat_weights[i]>steigung*cat_heights[i] + y_achsenabschnitt:
-                ab = AnnotationBbox(get_image(cat_image_path_grey), (cat_heights[i], cat_weights[i]), frameon=False)
-                cat_count+=1
-            else:
-                ab = AnnotationBbox(get_image(cat_image_path), (cat_heights[i], cat_weights[i]), frameon=False)
+            image_data = cat_img_grey_arr if cat_weights[i]>steigung*cat_heights[i]+y_achsenabschnitt else cat_img_arr
+            image = get_image_from_array(image_data)
+            ab = AnnotationBbox(image, (cat_heights[i], cat_weights[i]), frameon=False)
             ax.add_artist(ab)
-        
-        # Scatterplot für Hunde erstellen
+            if image_data is cat_img_grey_arr:
+                cat_count += 1
+
+        # Plot Dogs
         dog_count = 0
         for i in range(len(dog_heights)):
-            if dog_weights[i]<steigung*dog_heights[i] + y_achsenabschnitt:
-                ab = AnnotationBbox(get_image(dog_image_path_grey), (dog_heights[i], dog_weights[i]), frameon=False)
-                dog_count+=1
-            else:
-                ab = AnnotationBbox(get_image(dog_image_path), (dog_heights[i], dog_weights[i]), frameon=False)
+            image_data = dog_img_grey_arr if dog_weights[i]<steigung*dog_heights[i]+y_achsenabschnitt else dog_img_arr
+            image = get_image_from_array(image_data)
+            ab = AnnotationBbox(image, (dog_heights[i], dog_weights[i]), frameon=False)
             ax.add_artist(ab)
+            if image_data is dog_img_grey_arr:
+                dog_count += 1
 
-        # Gerade hinzufügen
-        x_vals = np.linspace(10, 70, 100)  # Erzeuge 100 Werte zwischen 10 und 70
-        y_vals = y_achsenabschnitt + steigung * x_vals  # Berechne die y-Werte basierend auf der Geradengleichung
-        ax.plot(x_vals, y_vals, '--', color='red', label=f'Gerade: y = {steigung:.2f}x + {y_achsenabschnitt:.2f}')
+        # Draw decision boundary
+        x_vals = np.linspace(10, 70, 100)
+        y_vals = y_achsenabschnitt + steigung * x_vals
+        ax.plot(x_vals, y_vals, color='royalblue', label=f'Gerade: y = {steigung:.2f}x + {y_achsenabschnitt:.2f}')
 
-        # Achsenbeschriftungen und -limits setzen
+        # Bereich einfärben
+        
+        ax.fill_between(x_vals, y_vals, 42, where=(y_vals < 42), color='navajowhite', alpha=1, label='kategorisiert als Hund')
+        ax.fill_between(x_vals, y_vals, 12, color='lightblue', alpha=1, label='kategorisiert als Katze')
+
         ax.set_xlim(10, 68)
         ax.set_ylim(12, 42)
         ax.set_xlabel('Größe (cm)')
         ax.set_ylabel('Gewicht (kg)')
-        ax.legend()  # Legende hinzufügen   
+        ax.legend()
         
         plt.show()
 
@@ -175,51 +177,53 @@ def hundOderKatzeMitGeradeV1():
     dog_heights = [18, 30, 35, 60, 45]  # Größe zwischen 45 und 65 cm
     dog_weights = [37, 27, 35, 30, 38]  # Gewicht zwischen 15 und 35 kg
 
-    # Bilder laden
-    cat_image_path = 'Grafiken/cathead.png'
-    cat_image_path_grey = 'Grafiken/cathead_grey.png'
-    dog_image_path = 'Grafiken/doghead.png'
-    dog_image_path_grey = 'Grafiken/doghead_grey.png'
+    # Lade Bilder EINMAL als Arrays (schnell und wiederverwendbar)
+    cat_img_arr = mpimg.imread('Grafiken/cathead.png')
+    cat_img_grey_arr = mpimg.imread('Grafiken/cathead_grey.png')
+    dog_img_arr = mpimg.imread('Grafiken/doghead.png')
+    dog_img_grey_arr = mpimg.imread('Grafiken/doghead_grey.png')
 
-    def get_image(path, zoom=0.2):  # Angepasste Zoomstufe
-        return OffsetImage(mpimg.imread(path), zoom=zoom)
+    def get_image_from_array(arr, zoom=0.2):
+        return OffsetImage(arr, zoom=zoom)
 
-    # Funktion zum Berechnen und Plotten der Abstände zur Geraden
-    def plot_counting(steigung=1.0, y_achsenabschnitt=0.0):#, save=False):
+    def plot_counting(steigung=1.0, y_achsenabschnitt=0.0):
         fig, ax = plt.subplots()
 
-
-        # Scatterplot für Katzen erstellen und falsch kategorisierte Katzen zählen
+        # Plot Cats
         cat_count = 0
         for i in range(len(cat_heights)):
-            if cat_weights[i]>steigung*cat_heights[i] + y_achsenabschnitt:
-                ab = AnnotationBbox(get_image(cat_image_path_grey), (cat_heights[i], cat_weights[i]), frameon=False)
-                cat_count+=1
-            else:
-                ab = AnnotationBbox(get_image(cat_image_path), (cat_heights[i], cat_weights[i]), frameon=False)
+            image_data = cat_img_grey_arr if cat_weights[i]>steigung*cat_heights[i]+y_achsenabschnitt else cat_img_arr
+            image = get_image_from_array(image_data)
+            ab = AnnotationBbox(image, (cat_heights[i], cat_weights[i]), frameon=False)
             ax.add_artist(ab)
-        
-        # Scatterplot für Hunde erstellen
+            if image_data is cat_img_grey_arr:
+                cat_count += 1
+
+        # Plot Dogs
         dog_count = 0
         for i in range(len(dog_heights)):
-            if dog_weights[i]<steigung*dog_heights[i] + y_achsenabschnitt:
-                ab = AnnotationBbox(get_image(dog_image_path_grey), (dog_heights[i], dog_weights[i]), frameon=False)
-                dog_count+=1
-            else:
-                ab = AnnotationBbox(get_image(dog_image_path), (dog_heights[i], dog_weights[i]), frameon=False)
+            image_data = dog_img_grey_arr if dog_weights[i]<steigung*dog_heights[i]+y_achsenabschnitt else dog_img_arr
+            image = get_image_from_array(image_data)
+            ab = AnnotationBbox(image, (dog_heights[i], dog_weights[i]), frameon=False)
             ax.add_artist(ab)
+            if image_data is dog_img_grey_arr:
+                dog_count += 1
 
-        # Gerade hinzufügen
-        x_vals = np.linspace(10, 70, 100)  # Erzeuge 100 Werte zwischen 10 und 70
-        y_vals = y_achsenabschnitt + steigung * x_vals  # Berechne die y-Werte basierend auf der Geradengleichung
-        ax.plot(x_vals, y_vals, '--', color='red', label=f'Gerade: y = {steigung:.2f}x + {y_achsenabschnitt:.2f}')
+        # Draw decision boundary
+        x_vals = np.linspace(10, 70, 100)
+        y_vals = y_achsenabschnitt + steigung * x_vals
+        ax.plot(x_vals, y_vals, color='royalblue', label=f'Gerade: y = {steigung:.2f}x + {y_achsenabschnitt:.2f}')
 
-        # Achsenbeschriftungen und -limits setzen
+        # Bereich einfärben
+        
+        ax.fill_between(x_vals, y_vals, 42, where=(y_vals < 42), color='navajowhite', alpha=1, label='kategorisiert als Hund')
+        ax.fill_between(x_vals, y_vals, 12, color='lightblue', alpha=1, label='kategorisiert als Katze')
+
         ax.set_xlim(10, 68)
         ax.set_ylim(12, 42)
         ax.set_xlabel('Größe (cm)')
         ax.set_ylabel('Gewicht (kg)')
-        ax.legend()  # Legende hinzufügen
+        ax.legend() # Legende hinzufügen
 
         # Gesamtabstände ausgeben
         print(f'Anzahl der falsch kategorisierten Katzen: {cat_count:.2f}')
@@ -341,62 +345,70 @@ def hundOderKatzeMitGeradeV2():
     dog_heights = [18, 30, 35, 60, 45]  # Größe zwischen 45 und 65 cm
     dog_weights = [37, 27, 35, 30, 38]  # Gewicht zwischen 15 und 35 kg
 
-    # Bilder laden
-    cat_image_path = 'Grafiken/cathead.png'
-    cat_image_path_grey = 'Grafiken/cathead_grey.png'
-    dog_image_path = 'Grafiken/doghead.png'
-    dog_image_path_grey = 'Grafiken/doghead_grey.png'
+    # Lade Bilder EINMAL als Arrays (schnell und wiederverwendbar)
+    cat_img_arr = mpimg.imread('Grafiken/cathead.png')
+    cat_img_grey_arr = mpimg.imread('Grafiken/cathead_grey.png')
+    dog_img_arr = mpimg.imread('Grafiken/doghead.png')
+    dog_img_grey_arr = mpimg.imread('Grafiken/doghead_grey.png')
 
-    def get_image(path, zoom=0.2):  # Angepasste Zoomstufe
-        return OffsetImage(mpimg.imread(path), zoom=zoom)
+    def get_image_from_array(arr, zoom=0.2):
+        return OffsetImage(arr, zoom=zoom)
 
-    # Funktion zum Berechnen und Plotten der Abstände zur Geraden
     def plot_with_distances(steigung=1.0, y_achsenabschnitt=0.0):
         fig, ax = plt.subplots()
-
-
-        # Gerade hinzufügen
-        x_vals = np.linspace(10, 70, 100)  # Erzeuge 100 Werte zwischen 10 und 70
-        y_vals = y_achsenabschnitt + steigung * x_vals  # Berechne die y-Werte basierend auf der Geradengleichung
-        ax.plot(x_vals, y_vals, '--', color='red', label=f'Gerade: y = {steigung:.2f}x + {y_achsenabschnitt:.2f}')
-
-        # Achsenbeschriftungen und -limits setzen
-        ax.set_xlim(10, 68)
-        ax.set_ylim(12, 42)
-        ax.set_xlabel('Größe (cm)')
-        ax.set_ylabel('Gewicht (kg)')
-        ax.legend()  # Legende hinzufügen
 
         # Abstände berechnen und anzeigen
         total_distance_cats = 0
         total_distance_dogs = 0
-
-        # Abstände für Katzen (oberhalb der Geraden)
+        
         for i in range(len(cat_heights)):
             y_on_line = steigung * cat_heights[i] + y_achsenabschnitt
-            if cat_weights[i] > y_on_line:  # nur Katzen oberhalb der Geraden
+            if cat_weights[i]>y_on_line:
+                image_data = cat_img_grey_arr
                 distance = cat_weights[i] - y_on_line
                 total_distance_cats += distance
                 # Linie für distanz zeichnen
                 ax.plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
-                ab = AnnotationBbox(get_image(cat_image_path_grey), (cat_heights[i], cat_weights[i]), frameon=False)
-            else:
-                ab = AnnotationBbox(get_image(cat_image_path), (cat_heights[i], cat_weights[i]), frameon=False)
+            else: 
+                image_data = cat_img_arr
+            image = get_image_from_array(image_data)
+            ab = AnnotationBbox(image, (cat_heights[i], cat_weights[i]), frameon=False)
             ax.add_artist(ab)
-            
+            #if image_data is cat_img_grey_arr:
+            #    cat_count += 1
 
-        # Abstände für Hunde (unterhalb der Geraden)
+        
         for i in range(len(dog_heights)):
-            y_on_line = steigung * dog_heights[i] + y_achsenabschnitt
-            if dog_weights[i] < y_on_line:  # nur Hunde unterhalb der Geraden
+            y_on_line = steigung*dog_heights[i]+y_achsenabschnitt
+            if dog_weights[i]<y_on_line:
+                image_data = dog_img_grey_arr 
                 distance = y_on_line - dog_weights[i]
                 total_distance_dogs += distance
                 # Linie für distanz zeichnen
                 ax.plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
-                ab = AnnotationBbox(get_image(dog_image_path_grey), (dog_heights[i], dog_weights[i]), frameon=False)
             else:
-                ab = AnnotationBbox(get_image(dog_image_path), (dog_heights[i], dog_weights[i]), frameon=False)
-            ax.add_artist(ab) 
+                image_data = dog_img_arr
+            image = get_image_from_array(image_data)
+            ab = AnnotationBbox(image, (dog_heights[i], dog_weights[i]), frameon=False)
+            ax.add_artist(ab)
+            #if image_data is dog_img_grey_arr:
+            #    dog_count += 1
+
+        # Draw decision boundary
+        x_vals = np.linspace(10, 70, 100)
+        y_vals = y_achsenabschnitt + steigung * x_vals
+        ax.plot(x_vals, y_vals, color='royalblue', label=f'Gerade: y = {steigung:.2f}x + {y_achsenabschnitt:.2f}')
+
+        # Bereich einfärben
+        
+        ax.fill_between(x_vals, y_vals, 42, where=(y_vals < 42), color='navajowhite', alpha=1, label='kategorisiert als Hund')
+        ax.fill_between(x_vals, y_vals, 12, color='lightblue', alpha=1, label='kategorisiert als Katze')
+
+        ax.set_xlim(10, 68)
+        ax.set_ylim(12, 42)
+        ax.set_xlabel('Größe (cm)')
+        ax.set_ylabel('Gewicht (kg)')
+        ax.legend()
 
         # Gesamtabstände ausgeben
         print(f'Gewichtsdifferenzen der falsch kategorisierten Katzen: {total_distance_cats:.2f}')
@@ -430,56 +442,76 @@ def krankenkassen(krankenkasse):
     dog_heights = [height+hoffset for height in dog_heights] 
     dog_weights = [weight+woffset for weight in dog_weights] 
 
-    def get_image(path, zoom=0.07):  # Angepasste Zoomstufe
-        return OffsetImage(mpimg.imread(path), zoom=zoom)
+    # Lade Bilder EINMAL als Arrays (schnell und wiederverwendbar)
+    cat_img_arr=[]
+    cat_img_grey_arr=[]
+    dog_img_arr=[]
+    dog_img_grey_arr=[]
 
-    # Funktion zum Berechnen und Plotten der Abstände zur Geraden
+    for i in range(len(cat_heights)):
+        cat_img_arr.append(mpimg.imread('Grafiken/person'+str(i+1)+'a.png'))
+        cat_img_grey_arr.append(mpimg.imread('Grafiken/person'+str(i+1)+'ab.png'))
+        dog_img_arr.append(mpimg.imread('Grafiken/person'+str(i+6)+'a_krank.png'))
+        dog_img_grey_arr.append(mpimg.imread('Grafiken/person'+str(i+6)+'ab_krank.png'))
+
+    def get_image_from_array(arr, zoom=0.07):
+        return OffsetImage(arr, zoom=zoom)
+
     def plot_with_distances(steigung=1.0, y_achsenabschnitt=0.0):
         fig, ax = plt.subplots()
+
+        # Abstände berechnen und anzeigen
+        total_distance_cats = 0
+        total_distance_dogs = 0
+        
+        for i in range(len(cat_heights)):
+            y_on_line = steigung * (cat_heights[i]-150) + y_achsenabschnitt
+            if cat_weights[i]>y_on_line:
+                image_data = cat_img_grey_arr[i]
+                distance = cat_weights[i] - y_on_line
+                total_distance_cats += distance
+                # Linie für distanz zeichnen
+                ax.plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
+            else: 
+                image_data = cat_img_arr[i]
+            image = get_image_from_array(image_data)
+            ab = AnnotationBbox(image, (cat_heights[i], cat_weights[i]), frameon=False)
+            ax.add_artist(ab)
+            #if image_data is cat_img_grey_arr:
+            #    cat_count += 1
+
+        
+        for i in range(len(dog_heights)):
+            y_on_line = steigung * (dog_heights[i]-150) + y_achsenabschnitt
+            if dog_weights[i]<y_on_line:
+                image_data = dog_img_grey_arr[i]
+                distance = y_on_line - dog_weights[i]
+                total_distance_dogs += distance
+                # Linie für distanz zeichnen
+                ax.plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
+            else:
+                image_data = dog_img_arr[i]
+            image = get_image_from_array(image_data)
+            ab = AnnotationBbox(image, (dog_heights[i], dog_weights[i]), frameon=False)
+            ax.add_artist(ab)
 
 
         # Gerade hinzufügen
         x_vals = np.linspace(148, 208, 100)  # Erzeuge 100 Werte zwischen 10 und 70
         y_vals = y_achsenabschnitt + steigung * (x_vals-150)  # Berechne die y-Werte basierend auf der Geradengleichung
-        ax.plot(x_vals, y_vals, '--', color='red', label=f'Gerade: y = {steigung:.2f} * (x-150) + {y_achsenabschnitt:.2f}')
+        ax.plot(x_vals, y_vals, color='royalblue', label=f'Gerade: y = {steigung:.2f} * (x-150) + {y_achsenabschnitt:.2f}')
+
+        # Bereich einfärben
+        
+        ax.fill_between(x_vals, y_vals, 92, where=(y_vals < 92), color='navajowhite', alpha=1, label='kategorisiert als krank')
+        ax.fill_between(x_vals, y_vals, 62, color='lightblue', alpha=1, label='kategorisiert als gesund')
 
         # Achsenbeschriftungen und -limits setzen
         ax.set_xlim(148, 208)
         ax.set_ylim(62, 92)
         ax.set_xlabel('Größe (cm)')
         ax.set_ylabel('Gewicht (kg)')
-        ax.legend()  # Legende hinzufügen
-
-        # Abstände berechnen und anzeigen
-        total_distance_cats = 0
-        total_distance_dogs = 0
-
-        # Abstände für Katzen (oberhalb der Geraden)
-        for i in range(len(cat_heights)):
-            y_on_line = steigung * (cat_heights[i]-150) + y_achsenabschnitt
-            if cat_weights[i] > y_on_line:  # nur Katzen oberhalb der Geraden
-                distance = cat_weights[i] - y_on_line
-                total_distance_cats += distance
-                # Linie für distanz zeichnen
-                ax.plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
-                ab = AnnotationBbox(get_image("Grafiken/person"+str(i+1)+"ab.png"), (cat_heights[i], cat_weights[i]), frameon=False)
-            else:
-                ab = AnnotationBbox(get_image("Grafiken/person"+str(i+1)+"a.png"), (cat_heights[i], cat_weights[i]), frameon=False)
-            ax.add_artist(ab)
-            
-
-        # Abstände für Hunde (unterhalb der Geraden)
-        for i in range(len(dog_heights)):
-            y_on_line = steigung * (dog_heights[i]-150) + y_achsenabschnitt
-            if dog_weights[i] < y_on_line:  # nur Hunde unterhalb der Geraden
-                distance = y_on_line - dog_weights[i]
-                total_distance_dogs += distance
-                # Linie für distanz zeichnen
-                ax.plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
-                ab = AnnotationBbox(get_image("Grafiken/person"+str(i+6)+"ab_krank.png"), (dog_heights[i], dog_weights[i]), frameon=False)
-            else:
-                ab = AnnotationBbox(get_image("Grafiken/person"+str(i+6)+"a_krank.png"), (dog_heights[i], dog_weights[i]), frameon=False)
-            ax.add_artist(ab) 
+        ax.legend()
 
         # Gesamtabstände ausgeben
         print(f'Gewichtsdifferenzen der falsch kategorisierten gesunden Personen: {total_distance_cats:.2f}')
@@ -508,9 +540,9 @@ def zweiGeraden():
         
         x_vals = np.linspace(10, 70, 100)  # Erzeuge 100 Werte zwischen 10 und 70
         y_new = new_function(x_vals)
-        ax.plot(x_vals, y_new, '-', color='purple', label=f'{w1} * x + {b1} + {w2} * x + {b2}')
-        ax.plot(x_vals, w1 * x_vals + b1, '--', color='grey', label=f'{w1} * x + {b1}')
-        ax.plot(x_vals, w2 * x_vals + b2, '--', color='grey', label=f'{w2} * x + {b2}')
+        ax.plot(x_vals, y_new, '-', color='purple', label=f'{round(w1,2)} * x + {round(b1,2)} + {round(w2,2)} * x + {round(b2,2)}')
+        ax.plot(x_vals, w1 * x_vals + b1, '--', color='grey', label=f'{round(w1,2)} * x + {round(b1,2)}')
+        ax.plot(x_vals, w2 * x_vals + b2, '--', color='grey', label=f'{round(w2,2)} * x + {round(b2,2)}')
         ax.legend()  # Legende aktualisieren
 
         plt.show()
@@ -542,7 +574,7 @@ def einNeuron():
         ax.set_xlim(0, 100)
         ax.set_ylim(-20, 50)
         ax.plot(x_vals, y_new, '-', color='purple', label=f'Neuronengleichung')
-        ax.plot(x_vals, w1 * x_vals + b1, '--', color='grey', label=f'{w1} * x + {b1}')
+        ax.plot(x_vals, w1 * x_vals + b1, '--', color='grey', label=f'{round(w1,2)} * x + {round(b1,2)}')
         ax.legend()  # Legende aktualisieren
   
         plt.show()
@@ -570,8 +602,8 @@ def zweiNeuronen():
         ax.set_xlim(0, 100)
         ax.set_ylim(-20, 50)
         ax.plot(x_vals, y_new, '-', color='purple', label=f'2 Neuronen addiert')
-        ax.plot(x_vals, w1 * x_vals + b1, '--', color='grey', label=f'{w1} * x + {b1}')
-        ax.plot(x_vals, w2 * x_vals + b2, '--', color='grey', label=f'{w2} * x + {b2}')
+        ax.plot(x_vals, w1 * x_vals + b1, '--', color='grey', label=f'{round(w1,2)} * x + {round(b1,2)}')
+        ax.plot(x_vals, w2 * x_vals + b2, '--', color='grey', label=f'{round(w2,2)} * x + {round(b2,2)}')
         ax.legend()  # Legende aktualisieren
   
         plt.show()
@@ -1089,4 +1121,222 @@ def zeitlimit(minuten):
     time.sleep(2)
     clear_output(wait=False)
 
+def hundOderKatzeAnhandGewicht_V2_zeichneVerlust():
+    # Daten
+    cat_heights = [20, 24, 31, 44, 50]
+    cat_weights = [30, 20, 15, 25, 30]
 
+    dog_heights = [18, 30, 35, 60, 45]
+    dog_weights = [37, 27, 35, 30, 38]
+
+    #Load images ONCE as arrays (fast and reusable)
+    cat_img_arr = mpimg.imread('Grafiken/cathead.png')
+    cat_img_grey_arr = mpimg.imread('Grafiken/cathead_grey.png')
+    dog_img_arr = mpimg.imread('Grafiken/doghead.png')
+    dog_img_grey_arr = mpimg.imread('Grafiken/doghead_grey.png')
+
+    # Abstände berechnen und anzeigen
+    total_distance_cats = 0
+    total_distance_dogs = 0
+
+    def calc_verlust(x):
+        cat_heights = [20, 24, 31, 44, 50]
+        cat_weights = [30, 20, 15, 25, 30]
+    
+        dog_heights = [18, 30, 35, 60, 45]
+        dog_weights = [37, 27, 35, 30, 38]
+
+        total_distance_cats = 0
+        total_distance_dogs = 0
+        
+        for i in range(len(cat_heights)):
+            if cat_weights[i]> x:
+                distance = cat_weights[i] - x
+                total_distance_cats += distance
+            
+        for i in range(len(dog_heights)):
+            if dog_weights[i]<x:
+                distance = x - dog_weights[i]
+                total_distance_dogs += distance
+                
+        return total_distance_cats+total_distance_dogs
+    
+    def get_image_from_array(arr, zoom=0.2):
+        return OffsetImage(arr, zoom=zoom)
+
+    def plot_counting(y_achsenabschnitt=0.0):
+        clear_output(wait=True)
+        fig, ax = plt.subplots(1, 2, figsize=(10, 5))
+
+        steigung=0
+        # Abstände berechnen und anzeigen
+        total_distance_cats = 0
+        total_distance_dogs = 0
+        
+        for i in range(len(cat_heights)):
+            y_on_line = steigung * cat_heights[i] + y_achsenabschnitt
+            if cat_weights[i]>y_on_line:
+                image_data = cat_img_grey_arr
+                distance = cat_weights[i] - y_on_line
+                total_distance_cats += distance
+                # Linie für distanz zeichnen
+                ax[0].plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
+            else: 
+                image_data = cat_img_arr
+            image = get_image_from_array(image_data)
+            ab = AnnotationBbox(image, (cat_heights[i], cat_weights[i]), frameon=False)
+            ax[0].add_artist(ab)
+            
+        for i in range(len(dog_heights)):
+            y_on_line = steigung*dog_heights[i]+y_achsenabschnitt
+            if dog_weights[i]<y_on_line:
+                image_data = dog_img_grey_arr 
+                distance = y_on_line - dog_weights[i]
+                total_distance_dogs += distance
+                # Linie für distanz zeichnen
+                ax[0].plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
+            else:
+                image_data = dog_img_arr
+            image = get_image_from_array(image_data)
+            ab = AnnotationBbox(image, (dog_heights[i], dog_weights[i]), frameon=False)
+            ax[0].add_artist(ab)
+
+        # Draw decision boundary
+        x_vals = np.linspace(10, 70, 100)
+        y_vals = y_achsenabschnitt + 0 * x_vals
+        ax[0].plot(x_vals, y_vals, color='royalblue', label=f'Grenze bei {y_achsenabschnitt:.2f} kg')
+
+        # Bereich einfärben
+        ax[0].fill_between(x_vals, y_vals, 12, color='lightblue', alpha=1, label='kategorisiert als Katze')
+        ax[0].fill_between(x_vals, y_vals, 42, where=(y_vals < 42), color='navajowhite', alpha=1, label='kategorisiert als Hund')
+
+        ax[0].set_xlim(10, 68)
+        ax[0].set_ylim(12, 42)
+        ax[0].set_xlabel('Größe (cm)')
+        ax[0].set_ylabel('Gewicht (kg)')
+        ax[0].legend()
+
+        # Vectorize the function to handle arrays
+        vectorized_verlust = np.vectorize(calc_verlust)
+        
+        x2_vals = np.linspace(10,50,100)
+        y2_vals = vectorized_verlust(x2_vals)
+
+        ax[1].set_xlabel('Gewichtsgrenze (kg)')
+        ax[1].set_ylabel('Verlust')
+        ax[1].plot(x2_vals, y2_vals, color="royalblue")
+        ax[1].plot(y_achsenabschnitt, calc_verlust(y_achsenabschnitt), 'ro') 
+
+        plt.show()
+
+    randomY = random.uniform(10, 50)
+    w = interactive(plot_counting, y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=randomY))
+    display(w)
+
+def hundOderKatzeAnhandGewicht_V1_zeichneVerlust():
+    # Daten
+    cat_heights = [20, 24, 31, 44, 50]
+    cat_weights = [30, 20, 15, 25, 30]
+
+    dog_heights = [18, 30, 35, 60, 45]
+    dog_weights = [37, 27, 35, 30, 38]
+
+    #Load images ONCE as arrays (fast and reusable)
+    cat_img_arr = mpimg.imread('Grafiken/cathead.png')
+    cat_img_grey_arr = mpimg.imread('Grafiken/cathead_grey.png')
+    dog_img_arr = mpimg.imread('Grafiken/doghead.png')
+    dog_img_grey_arr = mpimg.imread('Grafiken/doghead_grey.png')
+
+    # Abstände berechnen und anzeigen
+    total_distance_cats = 0
+    total_distance_dogs = 0
+
+    def calc_verlust(x):
+        cat_heights = [20, 24, 31, 44, 50]
+        cat_weights = [30, 20, 15, 25, 30]
+    
+        dog_heights = [18, 30, 35, 60, 45]
+        dog_weights = [37, 27, 35, 30, 38]
+
+        total_distance_cats = 0
+        total_distance_dogs = 0
+        
+        for i in range(len(cat_heights)):
+            if cat_weights[i]> x:
+                total_distance_cats += 1
+            
+        for i in range(len(dog_heights)):
+            if dog_weights[i]<x:
+                total_distance_dogs += 1
+                
+        return total_distance_cats+total_distance_dogs
+    
+    def get_image_from_array(arr, zoom=0.2):
+        return OffsetImage(arr, zoom=zoom)
+
+    def plot_counting(y_achsenabschnitt=0.0):
+        clear_output(wait=True)
+        fig, ax = plt.subplots(1, 2, figsize=(10, 5))
+
+        steigung=0
+        # Abstände berechnen und anzeigen
+        total_distance_cats = 0
+        total_distance_dogs = 0
+        
+        for i in range(len(cat_heights)):
+            y_on_line = steigung * cat_heights[i] + y_achsenabschnitt
+            if cat_weights[i]>y_on_line:
+                image_data = cat_img_grey_arr
+                total_distance_cats += 1
+                # Linie für distanz zeichnen
+                ax[0].plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
+            else: 
+                image_data = cat_img_arr
+            image = get_image_from_array(image_data)
+            ab = AnnotationBbox(image, (cat_heights[i], cat_weights[i]), frameon=False)
+            ax[0].add_artist(ab)
+            
+        for i in range(len(dog_heights)):
+            y_on_line = steigung*dog_heights[i]+y_achsenabschnitt
+            if dog_weights[i]<y_on_line:
+                image_data = dog_img_grey_arr 
+                total_distance_dogs += 1
+                # Linie für distanz zeichnen
+                ax[0].plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
+            else:
+                image_data = dog_img_arr
+            image = get_image_from_array(image_data)
+            ab = AnnotationBbox(image, (dog_heights[i], dog_weights[i]), frameon=False)
+            ax[0].add_artist(ab)
+
+        # Draw decision boundary
+        x_vals = np.linspace(10, 70, 100)
+        y_vals = y_achsenabschnitt + 0 * x_vals
+        ax[0].plot(x_vals, y_vals, color='royalblue', label=f'Grenze bei {y_achsenabschnitt:.2f} kg')
+
+        # Bereich einfärben
+        ax[0].fill_between(x_vals, y_vals, 12, color='lightblue', alpha=1, label='kategorisiert als Katze')
+        ax[0].fill_between(x_vals, y_vals, 42, where=(y_vals < 42), color='navajowhite', alpha=1, label='kategorisiert als Hund')
+
+        ax[0].set_xlim(10, 68)
+        ax[0].set_ylim(12, 42)
+        ax[0].set_xlabel('Größe (cm)')
+        ax[0].set_ylabel('Gewicht (kg)')
+        ax[0].legend()
+
+        # Vectorize the function to handle arrays
+        vectorized_verlust = np.vectorize(calc_verlust)
+        
+        x2_vals = np.linspace(10,50,100)
+        y2_vals = vectorized_verlust(x2_vals)
+
+        ax[1].set_xlabel('Gewichtsgrenze (kg)')
+        ax[1].set_ylabel('Verlust')
+        ax[1].plot(x2_vals, y2_vals, color="royalblue")
+        ax[1].plot(y_achsenabschnitt, calc_verlust(y_achsenabschnitt), 'ro') 
+
+        plt.show()
+
+    randomY = random.uniform(10, 50)
+    w = interactive(plot_counting, y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=randomY))
+    display(w)
