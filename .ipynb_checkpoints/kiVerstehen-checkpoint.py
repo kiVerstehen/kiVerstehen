@@ -1289,7 +1289,7 @@ def hundOderKatzeAnhandGewicht_V1_zeichneVerlust():
                 image_data = cat_img_grey_arr
                 total_distance_cats += 1
                 # Linie für distanz zeichnen
-                ax[0].plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
+                #ax[0].plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
             else: 
                 image_data = cat_img_arr
             image = get_image_from_array(image_data)
@@ -1302,7 +1302,7 @@ def hundOderKatzeAnhandGewicht_V1_zeichneVerlust():
                 image_data = dog_img_grey_arr 
                 total_distance_dogs += 1
                 # Linie für distanz zeichnen
-                ax[0].plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
+                #ax[0].plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
             else:
                 image_data = dog_img_arr
             image = get_image_from_array(image_data)
@@ -1340,3 +1340,148 @@ def hundOderKatzeAnhandGewicht_V1_zeichneVerlust():
     randomY = random.uniform(10, 50)
     w = interactive(plot_counting, y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=randomY))
     display(w)
+
+
+def hundOderKatzeMitGerade_zeichneVerlust():
+
+    # Feste Werte für Größe (in cm) und Gewicht (in kg)
+    # Daten für Katzen
+    cat_heights = [20, 24, 31, 44, 50]  # Größe zwischen 22 und 30 cm
+    cat_weights = [30, 20, 15, 25, 30]  # Gewicht zwischen 4 und 8 kg
+
+    # Daten für Hunde
+    dog_heights = [18, 30, 35, 60, 45]  # Größe zwischen 45 und 65 cm
+    dog_weights = [37, 27, 35, 30, 38]  # Gewicht zwischen 15 und 35 kg
+
+    # Lade Bilder EINMAL als Arrays (schnell und wiederverwendbar)
+    cat_img_arr = mpimg.imread('Grafiken/cathead.png')
+    cat_img_grey_arr = mpimg.imread('Grafiken/cathead_grey.png')
+    dog_img_arr = mpimg.imread('Grafiken/doghead.png')
+    dog_img_grey_arr = mpimg.imread('Grafiken/doghead_grey.png')
+
+
+    #change calc_verlust ------------------------- implement 2ax fig plot
+    def calc_verlust(steigung, y_achsenabschnitt):
+        cat_heights = [20, 24, 31, 44, 50]
+        cat_weights = [30, 20, 15, 25, 30]
+    
+        dog_heights = [18, 30, 35, 60, 45]
+        dog_weights = [37, 27, 35, 30, 38]
+
+        total_distance_cats = 0
+        total_distance_dogs = 0
+        
+        for i in range(len(cat_heights)):
+            y_on_line = steigung * cat_heights[i] + y_achsenabschnitt
+            if cat_weights[i]> y_on_line:
+                distance = cat_weights[i] - y_on_line
+                total_distance_cats += distance
+            
+        for i in range(len(dog_heights)):
+            y_on_line = steigung*dog_heights[i]+y_achsenabschnitt
+            if dog_weights[i]<y_on_line:
+                distance = y_on_line - dog_weights[i]
+                total_distance_dogs += distance
+                
+        return total_distance_cats+total_distance_dogs
+
+    def get_image_from_array(arr, zoom=0.2):
+        return OffsetImage(arr, zoom=zoom)
+
+    def plot_with_distances(steigung=1.0, y_achsenabschnitt=0.0):
+        clear_output(wait=True)
+        
+        fig = plt.figure(figsize=(10, 5))
+
+        # 2D subplot on the left
+        ax1 = fig.add_subplot(1, 2, 1)
+        
+        # 3D subplot on the right
+        ax2 = fig.add_subplot(1, 2, 2, projection='3d')
+        
+        
+        # Abstände berechnen und anzeigen
+        total_distance_cats = 0
+        total_distance_dogs = 0
+        
+        for i in range(len(cat_heights)):
+            y_on_line = steigung * cat_heights[i] + y_achsenabschnitt
+            if cat_weights[i]>y_on_line:
+                image_data = cat_img_grey_arr
+                distance = cat_weights[i] - y_on_line
+                total_distance_cats += distance
+                # Linie für distanz zeichnen
+                ax1.plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
+            else: 
+                image_data = cat_img_arr
+            image = get_image_from_array(image_data)
+            ab = AnnotationBbox(image, (cat_heights[i], cat_weights[i]), frameon=False)
+            ax1.add_artist(ab)
+            #if image_data is cat_img_grey_arr:
+            #    cat_count += 1
+
+        
+        for i in range(len(dog_heights)):
+            y_on_line = steigung*dog_heights[i]+y_achsenabschnitt
+            if dog_weights[i]<y_on_line:
+                image_data = dog_img_grey_arr 
+                distance = y_on_line - dog_weights[i]
+                total_distance_dogs += distance
+                # Linie für distanz zeichnen
+                ax1.plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
+            else:
+                image_data = dog_img_arr
+            image = get_image_from_array(image_data)
+            ab = AnnotationBbox(image, (dog_heights[i], dog_weights[i]), frameon=False)
+            ax1.add_artist(ab)
+            #if image_data is dog_img_grey_arr:
+            #    dog_count += 1
+
+        # Draw decision boundary
+        x_vals = np.linspace(10, 70, 100)
+        y_vals = y_achsenabschnitt + steigung * x_vals
+        ax1.plot(x_vals, y_vals, color='royalblue', label=f'Gerade: y = {steigung:.2f}x + {y_achsenabschnitt:.2f}')
+
+        # Bereich einfärben
+        
+        ax1.fill_between(x_vals, y_vals, 42, where=(y_vals < 42), color='navajowhite', alpha=1, label='kategorisiert als Hund')
+        ax1.fill_between(x_vals, y_vals, 12, color='lightblue', alpha=1, label='kategorisiert als Katze')
+
+        ax1.set_xlim(10, 68)
+        ax1.set_ylim(12, 42)
+        ax1.set_xlabel('Größe (cm)')
+        ax1.set_ylabel('Gewicht (kg)')
+        ax1.legend()
+
+
+        # Vectorize the function to handle arrays
+        vectorized_verlust = np.vectorize(calc_verlust)
+
+        x2_vals = np.linspace(-1,1,100)
+        y2_vals = np.linspace(10,50,100)
+    
+        x2_vals, y2_vals = np.meshgrid(x2_vals, y2_vals)
+        z2_vals = vectorized_verlust(x2_vals,y2_vals)
+
+
+        
+        
+        #ax[1].set_xlabel('Gewicht (kg)')
+        #ax[1].set_ylabel('Verlust')
+        #ax2.plot_surface(x2_vals, y2_vals, z2_vals)
+        ax2.plot_surface(x2_vals, y2_vals, z2_vals, edgecolor='royalblue', lw=0.5, rstride=8, cstride=8,alpha=0.3,zorder=1)
+        #ax2.plot_wireframe(x2_vals, y2_vals, z2_vals, rstride=10, cstride=10, zorder=1)
+        ax2.plot(steigung, y_achsenabschnitt, calc_verlust(steigung,y_achsenabschnitt), "ro", zorder=10)
+        #ax[1].plot(y_achsenabschnitt, calc_verlust(y_achsenabschnitt), 'ro') 
+        
+
+        plt.show()
+
+    randomSteigung = random.uniform(-1,1)
+    randomY = random.uniform(10,50)
+    # Interaktiver Plot mit anpassbarer Gerade und Möglichkeit, den Plot zu speichern 
+    interact(plot_with_distances, 
+            steigung=widgets.FloatSlider(min=-1, max=1, step=0.05, value=randomSteigung),
+            y_achsenabschnitt=widgets.FloatSlider(min=10, max=50, step=0.05, value=randomY))
+
+
