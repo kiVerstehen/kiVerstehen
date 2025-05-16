@@ -658,7 +658,10 @@ def hundOderKatzeZweiNeuronen():
         
         x_vals = np.linspace(10, 70, 100)  # Erzeuge 100 Werte zwischen 10 und 70 | max(0,{w1} * x + {b1}) + max(0,{w2} * x + {b2})
         y_new = new_function(x_vals)
-        ax.plot(x_vals, y_new, '-', color='purple', label=f'2 Neuronen addiert')
+        ax.plot(x_vals, y_new, '-', color='royalblue', label=f'2 Neuronen addiert')
+        ax.fill_between(x_vals, y_new, 42, where=(y_new < 42), color='navajowhite', alpha=1, label='kategorisiert als Hund')
+        ax.fill_between(x_vals, y_new, 12, color='lightblue', alpha=1, label='kategorisiert als Katze')
+        
         ax.legend()  # Legende aktualisieren
 
         # Abstände berechnen und anzeigen
@@ -691,6 +694,8 @@ def hundOderKatzeZweiNeuronen():
                 ab = AnnotationBbox(get_image(dog_image_path), (dog_heights[i], dog_weights[i]), frameon=False)
             ax.add_artist(ab) 
 
+        
+        
         # Gesamtabstände ausgeben
         print(f'Gewichtsdifferenzen der falsch kategorisierten Katzen: {total_distance_cats_above:.2f}')
         print(f'Gewichtsdifferenzen der falsch kategorisierten Hunde: {total_distance_dogs_below:.2f}')
