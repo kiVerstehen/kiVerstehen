@@ -60,8 +60,6 @@ def plot_counting(y_achsenabschnitt=0.0):
         if cat_weights[i]>y_on_line:
             image_data = cat_img_grey_arr
             total_distance_cats += 1
-            # Linie für distanz zeichnen
-            ax[0].plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
         else: 
             image_data = cat_img_arr
         image = get_image_from_array(image_data)
@@ -73,8 +71,6 @@ def plot_counting(y_achsenabschnitt=0.0):
         if dog_weights[i]<y_on_line:
             image_data = dog_img_grey_arr 
             total_distance_dogs += 1
-            # Linie für distanz zeichnen
-            ax[0].plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
         else:
             image_data = dog_img_arr
         image = get_image_from_array(image_data)
