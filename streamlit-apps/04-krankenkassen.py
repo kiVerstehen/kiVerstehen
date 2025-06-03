@@ -30,10 +30,10 @@ dog_img_arr=[]
 dog_img_grey_arr=[]
 
 for i in range(len(cat_heights)):
-    cat_img_arr.append(mpimg.imread('../Grafiken/person'+str(i+1)+'a.png'))
-    cat_img_grey_arr.append(mpimg.imread('../Grafiken/person'+str(i+1)+'ab.png'))
-    dog_img_arr.append(mpimg.imread('../Grafiken/person'+str(i+6)+'a_krank.png'))
-    dog_img_grey_arr.append(mpimg.imread('../Grafiken/person'+str(i+6)+'ab_krank.png'))
+    cat_img_arr.append(mpimg.imread('./Grafiken/person'+str(i+1)+'a.png'))
+    cat_img_grey_arr.append(mpimg.imread('./Grafiken/person'+str(i+1)+'ab.png'))
+    dog_img_arr.append(mpimg.imread('./Grafiken/person'+str(i+6)+'a_krank.png'))
+    dog_img_grey_arr.append(mpimg.imread('./Grafiken/person'+str(i+6)+'ab_krank.png'))
 
 def get_image_from_array(arr, zoom=0.07):
     return OffsetImage(arr, zoom=zoom)

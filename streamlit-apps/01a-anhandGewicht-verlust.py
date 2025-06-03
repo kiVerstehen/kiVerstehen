@@ -14,10 +14,10 @@ dog_heights = [18, 30, 35, 60, 45]
 dog_weights = [37, 27, 35, 30, 38]
 
 #Load images ONCE as arrays (fast and reusable)
-cat_img_arr = mpimg.imread('../Grafiken/cathead.png')
-cat_img_grey_arr = mpimg.imread('../Grafiken/cathead_grey.png')
-dog_img_arr = mpimg.imread('../Grafiken/doghead.png')
-dog_img_grey_arr = mpimg.imread('../Grafiken/doghead_grey.png')
+cat_img_arr = mpimg.imread('./Grafiken/cathead.png')
+cat_img_grey_arr = mpimg.imread('./Grafiken/cathead_grey.png')
+dog_img_arr = mpimg.imread('./Grafiken/doghead.png')
+dog_img_grey_arr = mpimg.imread('./Grafiken/doghead_grey.png')
 
 # Abstände berechnen und anzeigen
 total_distance_cats = 0
