@@ -15,10 +15,10 @@ dog_heights = [18, 30, 35, 60, 45]
 dog_weights = [37, 27, 35, 30, 38]
 
 # Lade Bilder EINMAL als Arrays (schnell und wiederverwendbar)
-cat_img_arr = mpimg.imread('./Grafiken/cathead.png')
-cat_img_grey_arr = mpimg.imread('./Grafiken/cathead_grey.png')
-dog_img_arr = mpimg.imread('./Grafiken/doghead.png')
-dog_img_grey_arr = mpimg.imread('./Grafiken/doghead_grey.png')
+cat_img_arr = mpimg.imread('../Grafiken/cathead.png')
+cat_img_grey_arr = mpimg.imread('../Grafiken/cathead_grey.png')
+dog_img_arr = mpimg.imread('../Grafiken/doghead.png')
+dog_img_grey_arr = mpimg.imread('../Grafiken/doghead_grey.png')
 
 def get_image_from_array(arr, zoom=0.2):
     return OffsetImage(arr, zoom=zoom)
@@ -26,42 +26,25 @@ def get_image_from_array(arr, zoom=0.2):
 def plot_counting(steigung=1.0, y_achsenabschnitt=0.0):
     fig, ax = plt.subplots()
 
-    # Abstände berechnen und anzeigen
-    total_distance_cats = 0
-    total_distance_dogs = 0
-    
+    # Plot Cats
+    cat_count = 0
     for i in range(len(cat_heights)):
-        y_on_line = steigung * cat_heights[i] + y_achsenabschnitt
-        if cat_weights[i]>y_on_line:
-            image_data = cat_img_grey_arr
-            distance = cat_weights[i] - y_on_line
-            total_distance_cats += distance
-            # Linie für distanz zeichnen
-            ax.plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
-        else: 
-            image_data = cat_img_arr
+        image_data = cat_img_grey_arr if cat_weights[i]>steigung*cat_heights[i]+y_achsenabschnitt else cat_img_arr
         image = get_image_from_array(image_data)
         ab = AnnotationBbox(image, (cat_heights[i], cat_weights[i]), frameon=False)
         ax.add_artist(ab)
-        #if image_data is cat_img_grey_arr:
-        #    cat_count += 1
+        if image_data is cat_img_grey_arr:
+            cat_count += 1
 
-    
+    # Plot Dogs
+    dog_count = 0
     for i in range(len(dog_heights)):
-        y_on_line = steigung*dog_heights[i]+y_achsenabschnitt
-        if dog_weights[i]<y_on_line:
-            image_data = dog_img_grey_arr 
-            distance = y_on_line - dog_weights[i]
-            total_distance_dogs += distance
-            # Linie für distanz zeichnen
-            ax.plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
-        else:
-            image_data = dog_img_arr
+        image_data = dog_img_grey_arr if dog_weights[i]<steigung*dog_heights[i]+y_achsenabschnitt else dog_img_arr
         image = get_image_from_array(image_data)
         ab = AnnotationBbox(image, (dog_heights[i], dog_weights[i]), frameon=False)
         ax.add_artist(ab)
-        #if image_data is dog_img_grey_arr:
-        #    dog_count += 1
+        if image_data is dog_img_grey_arr:
+            dog_count += 1
 
     # Draw decision boundary
     x_vals = np.linspace(10, 70, 100)
@@ -80,9 +63,15 @@ def plot_counting(steigung=1.0, y_achsenabschnitt=0.0):
     ax.legend()
 
     
-    st.table([["Gewichtsdifferenzen falsch kategorisierter Katzen",f"{total_distance_cats:.2f}"],["Gewichtsdifferenzen falsch kategorisierter Hunde",f"{total_distance_dogs:.2f}"],["**Verlust**", f"**{total_distance_cats+total_distance_dogs:.2f}**"]])
+    st.table([["Anzahl falsch kategorisierter Katzen",f"{cat_count:.2f}"],["Anzahl falsch kategorisierter Hunde",f"{dog_count:.2f}"],["**Verlust**", f"**{cat_count+dog_count:.2f}**"]])
 
     st.pyplot(fig)
+    
+
+# Streamlit UI
+#st.title('Hund oder Katze?')
+
+    
 
 
 # Zufälliger Wert für den Slider

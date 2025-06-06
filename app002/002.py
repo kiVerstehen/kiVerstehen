@@ -6,10 +6,6 @@ import numpy as np
 import random
 from IPython.display import clear_output
 
-
-
-
-
 # Daten
 cat_heights = [20, 24, 31, 44, 50]
 cat_weights = [30, 20, 15, 25, 30]
@@ -18,10 +14,10 @@ dog_heights = [18, 30, 35, 60, 45]
 dog_weights = [37, 27, 35, 30, 38]
 
 #Load images ONCE as arrays (fast and reusable)
-cat_img_arr = mpimg.imread('./Grafiken/cathead.png')
-cat_img_grey_arr = mpimg.imread('./Grafiken/cathead_grey.png')
-dog_img_arr = mpimg.imread('./Grafiken/doghead.png')
-dog_img_grey_arr = mpimg.imread('./Grafiken/doghead_grey.png')
+cat_img_arr = mpimg.imread('../Grafiken/cathead.png')
+cat_img_grey_arr = mpimg.imread('../Grafiken/cathead_grey.png')
+dog_img_arr = mpimg.imread('../Grafiken/doghead.png')
+dog_img_grey_arr = mpimg.imread('../Grafiken/doghead_grey.png')
 
 # Abstände berechnen und anzeigen
 total_distance_cats = 0
@@ -39,13 +35,11 @@ def calc_verlust(x):
     
     for i in range(len(cat_heights)):
         if cat_weights[i]> x:
-            distance = cat_weights[i] - x
-            total_distance_cats += distance
+            total_distance_cats += 1
         
     for i in range(len(dog_heights)):
         if dog_weights[i]<x:
-            distance = x - dog_weights[i]
-            total_distance_dogs += distance
+            total_distance_dogs += 1
             
     return total_distance_cats+total_distance_dogs
 
@@ -65,10 +59,7 @@ def plot_counting(y_achsenabschnitt=0.0):
         y_on_line = steigung * cat_heights[i] + y_achsenabschnitt
         if cat_weights[i]>y_on_line:
             image_data = cat_img_grey_arr
-            distance = cat_weights[i] - y_on_line
-            total_distance_cats += distance
-            # Linie für distanz zeichnen
-            ax[0].plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
+            total_distance_cats += 1
         else: 
             image_data = cat_img_arr
         image = get_image_from_array(image_data)
@@ -79,10 +70,7 @@ def plot_counting(y_achsenabschnitt=0.0):
         y_on_line = steigung*dog_heights[i]+y_achsenabschnitt
         if dog_weights[i]<y_on_line:
             image_data = dog_img_grey_arr 
-            distance = y_on_line - dog_weights[i]
-            total_distance_dogs += distance
-            # Linie für distanz zeichnen
-            ax[0].plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
+            total_distance_dogs += 1
         else:
             image_data = dog_img_arr
         image = get_image_from_array(image_data)
@@ -117,9 +105,6 @@ def plot_counting(y_achsenabschnitt=0.0):
 
     st.pyplot(fig)
 
-# Streamlit UI
-#st.title('Hund oder Katze?')
-
 # Zufälliger Wert für den Slider
 if 'randomY' not in st.session_state:
     st.session_state.randomY = random.uniform(10, 50)
@@ -138,3 +123,4 @@ with col1:
 
 with col2:
     plot_counting(y_achsenabschnitt)
+
