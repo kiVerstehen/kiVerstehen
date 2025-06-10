@@ -36,9 +36,9 @@ col1, col2 = st.columns([1, 3])  # Seitenverhältnis: 1 Teil Slider, 3 Teile Plo
 with col1:
     
 
-    steigung1 = st.slider('Gewicht', min_value=-2.0, max_value=2.0, step=0.05, value=st.session_state.randomS1)
+    steigung1 = st.slider('Steigung', min_value=-2.0, max_value=2.0, step=0.05, value=st.session_state.randomS1)
     y_achsenabschnitt1 = st.slider(
-        'Bias', 
+        'y-Achsenabschnitt', 
         min_value=-50.0, 
         max_value=50.0, 
         step=0.05, 
