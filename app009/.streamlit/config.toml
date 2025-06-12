@@ -1,0 +1,6 @@
+[server]
+headless = true
+port = 8509
+enableCORS = false
+enableXsrfProtection = false
+baseUrlPath = "app009"

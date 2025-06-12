@@ -54,7 +54,7 @@ def hundOderKatzeNNtesten(größe=50,gewicht=10):
             return x
 
     # Modell laden
-    model_path="./Beispiel-Modelle/Modelle/katzeOderHundGrößeGewicht.pth"
+    model_path="../Beispiel-Modelle/Modelle/katzeOderHundGrößeGewicht.pth"
     model = SimpleNN()  # Initialisiere das Modell
     model.load_state_dict(torch.load(model_path, weights_only=True))
     model.eval()  # Setze das Modell in den Evaluationsmodus
