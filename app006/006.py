@@ -49,10 +49,10 @@ def plot_counting(steigung=1.0, y_achsenabschnitt=0.0):
         y_on_line = steigung * (cat_heights[i]-150) + y_achsenabschnitt
         if cat_weights[i]>y_on_line:
             image_data = cat_img_grey_arr[i]
-            distance = cat_weights[i] - y_on_line
-            total_distance_cats += distance
+            #distance = cat_weights[i] - y_on_line
+            total_distance_cats += 1#distance
             # Linie für distanz zeichnen
-            ax.plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
+            #ax.plot([cat_heights[i], cat_heights[i]], [y_on_line, cat_weights[i]], 'b-')
         else: 
             image_data = cat_img_arr[i]
         image = get_image_from_array(image_data)
@@ -66,10 +66,10 @@ def plot_counting(steigung=1.0, y_achsenabschnitt=0.0):
         y_on_line = steigung * (dog_heights[i]-150) + y_achsenabschnitt
         if dog_weights[i]<y_on_line:
             image_data = dog_img_grey_arr[i]
-            distance = y_on_line - dog_weights[i]
-            total_distance_dogs += distance
+            #distance = y_on_line - dog_weights[i]
+            total_distance_dogs += 1#distance
             # Linie für distanz zeichnen
-            ax.plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
+            #ax.plot([dog_heights[i], dog_heights[i]], [dog_weights[i], y_on_line], 'g-')
         else:
             image_data = dog_img_arr[i]
         image = get_image_from_array(image_data)
@@ -95,7 +95,7 @@ def plot_counting(steigung=1.0, y_achsenabschnitt=0.0):
     ax.legend()
 
     
-    st.table([["Gewichtsdifferenzen der falsch kategorisierten Gesunden",f"{total_distance_cats:.2f}"],["Gewichtsdifferenzen der falsch kategorisierten Kranken",f"{total_distance_dogs:.2f}"]])
+    st.table([["Falsch kategorisierte gesunde Personen",f"{total_distance_cats:.2f}"],["Falsch kategorisierte kranke Personen",f"{total_distance_dogs:.2f}"]])
 
     st.pyplot(fig)
 
