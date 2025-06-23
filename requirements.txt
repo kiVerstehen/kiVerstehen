@@ -6,3 +6,5 @@ fastbook
 fastai
 streamlit
 Pillow
+dash
+dash_canvas

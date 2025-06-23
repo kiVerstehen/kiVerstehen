@@ -8,7 +8,11 @@ def encode_image(image_file):
     with open(image_file, 'rb') as f:
         return base64.b64encode(f.read()).decode()
 
-app = dash.Dash(__name__)
+app = dash.Dash(
+    __name__,
+    requests_pathname_prefix='/app006/',
+    assets_url_path='/app006/assets'
+)
 
 image_path = '../Grafiken/diabetes2.png'
 image_base64 = encode_image(image_path)
