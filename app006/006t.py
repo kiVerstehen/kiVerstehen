@@ -10,7 +10,7 @@ def encode_image(image_file):
 
 app = dash.Dash(__name__)
 
-image_path = '../Grafiken/diabetes_ohne_gerade.png'
+image_path = '../Grafiken/diabetes2.png'
 image_base64 = encode_image(image_path)
 
 app.layout = html.Div([
