@@ -71,8 +71,8 @@ def hundOderKatzeNNtesten(größe=50,gewicht=10):
     return hundchance,katzchance
 
 left, middle, right = st.columns(3)
-größe = int(left.text_input("Größe", "50"))
-gewicht = int(left.text_input("Gewicht", "10"))
+größe = int(left.text_input("Größe", "20"))
+gewicht = int(left.text_input("Gewicht", "25"))
 
 
 
