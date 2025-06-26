@@ -71,12 +71,13 @@ def hundOderKatzeNNtesten(größe=50,gewicht=10):
     return hundchance,katzchance
 
 left, middle, right = st.columns(3)
-gewicht = int(left.text_input("Gewicht", "10"))
 größe = int(left.text_input("Größe", "50"))
+gewicht = int(left.text_input("Gewicht", "10"))
+
 
 
 if left.button("KI fragen", icon="🤖", use_container_width=True):
     hundchance,katzchance = hundOderKatzeNNtesten(größe,gewicht)
-    left.markdown(f"Vorhersage für **{gewicht} kg** und **{größe} cm**:")
+    left.markdown(f"Vorhersage für **{größe} cm** und **{gewicht} kg**:")
     left.markdown(f"**Hund**:  {hundchance}")
     left.markdown(f"**Katze**: {katzchance}")
