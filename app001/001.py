@@ -5,6 +5,12 @@ import matplotlib.image as mpimg
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import random
 
+import sys
+
+sys.path.append( '../' )
+
+from modules.streamlitsliders import SyncedSlider
+
 # Daten
 cat_heights = [20, 24, 31, 44, 50]
 cat_weights = [30, 20, 15, 25, 30]
@@ -66,21 +72,22 @@ def plot_counting(y_achsenabschnitt=0.0):
 #st.title('Hund oder Katze?')
 
 # Zufälliger Wert für den Slider
-if 'randomY' not in st.session_state:
-    st.session_state.randomY = random.uniform(10, 50)
+#if 'randomY' not in st.session_state:
+#    st.session_state.randomY = random.uniform(10, 50)
 
 # Erstelle zwei Spalten: links für den Slider, rechts für das Diagramm
-col1, col2 = st.columns([1, 3])  # Seitenverhältnis: 1 Teil Slider, 3 Teile Plot
+col1, col2 = st.columns([1.5, 3])  # Seitenverhältnis: 1 Teil Slider, 3 Teile Plot
 
 with col1:
-    y_achsenabschnitt = st.slider(
-        'Grenze für Gewicht (kg)', 
-        min_value=10.0, 
-        max_value=50.0, 
-        step=0.05, 
-        value=st.session_state.randomY
-    )
+    #y_achsenabschnitt = st.slider(
+    #    'Grenze für Gewicht (kg)', 
+    #    min_value=10.0, 
+    #    max_value=50.0, 
+    #    step=0.05, 
+    #    value=st.session_state.randomY
+    #)
+    y_achsenabschnitt = SyncedSlider("Grenze für Gewicht (kg)", 10, 50, random.randint(10, 50), key_prefix="slider_y", step=1)
 
 with col2:
-    plot_counting(y_achsenabschnitt)
+    plot_counting(y_achsenabschnitt.value())
     
