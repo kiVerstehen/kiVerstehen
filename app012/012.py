@@ -48,7 +48,7 @@ elif modell=="tomate oder apfel":
 elif modell=="arzt oder bauarbeiter":
     testpics = middle.selectbox(
         "Welches Bild möchtest du testen?",
-        ("arzt.jpg", "bauarbeiter.jpg", "weisseTasse.jpg", "arztMitHelm.jpg", "mannImAnzug.jpg"),
+        ("arzt.jpg", "bauarbeiter.jpg", "weißeTasse.jpg", "arztMitHelm.jpg", "mannImAnzug.jpg"),
     )
 elif modell=="cool oder uncool":
     testpics = middle.selectbox(
