@@ -5,7 +5,9 @@ import matplotlib.image as mpimg
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import random
 
-
+import sys
+sys.path.append( '../' )
+from modules.streamlitsliders import SyncedSlider
 
 # Daten
 cat_heights = [20, 24, 31, 44, 50]
@@ -66,7 +68,7 @@ def plot_counting(steigung=1.0, y_achsenabschnitt=0.0):
     # Draw decision boundary
     x_vals = np.linspace(10, 70, 100)
     y_vals = y_achsenabschnitt + steigung * x_vals
-    ax.plot(x_vals, y_vals, color='royalblue', label=f'Gerade: y = {steigung:.2f}x + {y_achsenabschnitt:.2f}')
+    ax.plot(x_vals, y_vals, color='royalblue', label=f'Gerade: y = {steigung:.1f}x + {y_achsenabschnitt:.2f}')
 
     # Bereich einfärben
     
@@ -85,31 +87,20 @@ def plot_counting(steigung=1.0, y_achsenabschnitt=0.0):
     st.pyplot(fig)
 
 
-# Zufälliger Wert für den Slider
-if 'randomS' not in st.session_state:
-    st.session_state.randomS = random.uniform(-1, 1)
-
-if 'randomY' not in st.session_state:
-    st.session_state.randomY = random.uniform(10, 50)
-
 
 # Erstelle zwei Spalten: links für den Slider, rechts für das Diagramm
-col1, col2 = st.columns([1, 3])  # Seitenverhältnis: 1 Teil Slider, 3 Teile Plot
+col1, col2 = st.columns([1.5, 3])  
 
 with col1:
     st.write("#")
     st.write("###")
 
-    steigung = st.slider('Steigung', min_value=-1.0, max_value=1.0, step=0.05, value=st.session_state.randomS)
-    y_achsenabschnitt = st.slider(
-        'y-Achsenabschnitt', 
-        min_value=10.0, 
-        max_value=50.0, 
-        step=0.05, 
-        value=st.session_state.randomY
-    )
+    
+    steigung = SyncedSlider("Steigung", -1.0, 1.0, round(random.uniform(-1.0, 1.0),1), key_prefix="slider_s", step=0.1)
+
+    y_achsenabschnitt = SyncedSlider('y-Achsenabschnitt', 10, 50, random.randint(10, 50), key_prefix="slider_y", step=1)
 
 with col2:
-    plot_counting(steigung, y_achsenabschnitt)
+    plot_counting(steigung.value(), y_achsenabschnitt.value())
     
 

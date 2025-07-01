@@ -5,6 +5,10 @@ import matplotlib.image as mpimg
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import random
 
+import sys
+sys.path.append( '../' )
+from modules.streamlitsliders import SyncedSlider
+
 # Daten
 cat_heights = [20, 24, 31, 44, 50]
 cat_weights = [30, 20, 15, 25, 30]
@@ -98,42 +102,17 @@ def plot_with_new_function(w1=0.3, b1=17.0, w2=0.3, b2=17.0):
     st.pyplot(fig)
 
 
-# Zufälliger Wert für den Slider
-if 'randomS1' not in st.session_state:
-    st.session_state.randomS1 = round(random.uniform(-1, 1),2)
-if 'randomS2' not in st.session_state:
-    st.session_state.randomS2 = round(random.uniform(-1, 1),2)
-
-if 'randomY1' not in st.session_state:
-    st.session_state.randomY1 = round(random.uniform(10, 50),2)
-if 'randomY2' not in st.session_state:
-    st.session_state.randomY2 = round(random.uniform(10, 50),2)
-
-
 # Erstelle zwei Spalten: links für den Slider, rechts für das Diagramm
-col1, col2 = st.columns([1, 3])  # Seitenverhältnis: 1 Teil Slider, 3 Teile Plot
+col1, col2 = st.columns([1.5, 3])  
 
 with col1:
     st.write("#")
     st.write("###")
-
-    steigung1 = st.slider('Gewicht 1', min_value=-2.0, max_value=2.0, step=0.05, value=st.session_state.randomS1)
-    y_achsenabschnitt1 = st.slider(
-        'Bias 1', 
-        min_value=-50.0, 
-        max_value=50.0, 
-        step=0.05, 
-        value=st.session_state.randomY1
-    )
+    steigung1 = SyncedSlider("Gewicht 1", -2.0, 2.0, round(random.uniform(-2.0, 2.0),1), key_prefix="slider_s1", step=0.1)
+    y_achsenabschnitt1 = SyncedSlider('Bias 1', -50, 50, random.randint(-50, 50), key_prefix="slider_y1", step=1)
     #st.divider()
-    steigung2 = st.slider('Gewicht 2', min_value=-2.0, max_value=2.0, step=0.05, value=st.session_state.randomS2)
-    y_achsenabschnitt2 = st.slider(
-        'Bias 2', 
-        min_value=-50.0, 
-        max_value=50.0, 
-        step=0.05, 
-        value=st.session_state.randomY2
-    )
+    steigung2 = SyncedSlider("Gewicht 2", -2.0, 2.0, round(random.uniform(-2.0, 2.0),1), key_prefix="slider_s2", step=0.1)
+    y_achsenabschnitt2 = SyncedSlider('Bias 2', -50, 50, random.randint(-50, 50), key_prefix="slider_y2", step=1)
 
 with col2:
-    plot_with_new_function(steigung1, y_achsenabschnitt1, steigung2, y_achsenabschnitt2)
+    plot_with_new_function(steigung1.value(), y_achsenabschnitt1.value(), steigung2.value(), y_achsenabschnitt2.value())

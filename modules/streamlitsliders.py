@@ -70,6 +70,7 @@ class SyncedSlider:
                 min_value=self.min_val,
                 max_value=self.max_val,
                 value=value,
+                step=self.step,
                 key=self.slider_key,
                 on_change=self._on_slider_change,
                 label_visibility="collapsed" 
