@@ -115,7 +115,7 @@ with col1:
     
     steigung = SyncedSlider("Steigung", -1.0, 1.0, round(random.uniform(-1.0, 1.0),1), key_prefix="slider_s", step=0.1)
 
-    y_achsenabschnitt = SyncedSlider('y-Achsenabschnitt', 10, 150, random.randint(50, 110), key_prefix="slider_y", step=1)
+    y_achsenabschnitt = SyncedSlider('y-Achsenabschnitt', 50, 110, random.randint(50, 110), key_prefix="slider_y", step=1)
 
 with col2:
     plot_counting(steigung.value(), y_achsenabschnitt.value())
