@@ -1,7 +1,7 @@
 Inhalt der Apps:
 
 app001: Unterscheidung von Hund und Katze anhand des Gewichts
-app002: Einführung der Verlustfunktion: Zählen der falsch kategorisierten Tiere
+app002: Verlustfunktion: Zählen der falsch kategorisierten Tiere
 app003: Unterscheidung von Hund und Katze mithilfe einer Geradengleichung
 app004: Stetige Verlustfunktion anhand des Gewichts
 app005: stetige Verlustfunktion und Geradengleichung
@@ -9,9 +9,10 @@ app006: Krankenkasse
 app006t: Krankenkasse mit Selbst-Einzeichnen
 app007: zwei Geraden addieren
 app008: ein Neuron
-app009: zwei Neuronen x
-app010: hund oder katze mithilfe von 2 Neuronen x
+app009: zwei Neuronen 
+app010: hund oder katze mithilfe von 2 Neuronen 
 app011: nn testen f(größe, gewicht)= hund oder Katze
 app012: bild in modell testen
-app013: Einzeichnen Heat-Map
-app014: Heatmap trainieren
+app013: Einzeichnen Heat-Map (nicht implementiert)
+app014: Heatmap trainieren (nicht implementiert)
+app015: Zweidimensionale Übertragungsfunktion ReLU-Neuron
