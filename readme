@@ -13,6 +13,4 @@ app009: zwei Neuronen
 app010: hund oder katze mithilfe von 2 Neuronen 
 app011: nn testen f(größe, gewicht)= hund oder Katze
 app012: bild in modell testen
-app013: Einzeichnen Heat-Map (nicht implementiert)
-app014: Heatmap trainieren (nicht implementiert)
-app015: Zweidimensionale Übertragungsfunktion ReLU-Neuron
+app013: Zweidimensionale Übertragungsfunktion ReLU-Neuron
