@@ -28,9 +28,9 @@ def plot_with_new_function(w1=0.3, b1=17.0, w2=0.3):
     fig = plt.figure()
     fig = go.Figure(data=[go.Surface(z=Z, x=X, y=Y, colorscale='Viridis')])
     fig.update_layout(title='Neuron mit zwei Eingängen', scene=dict(
-        xaxis_title='X axis',
-        yaxis_title='Y axis',
-        zaxis_title='Z axis'
+        xaxis_title='x',
+        yaxis_title='y',
+        zaxis_title='z'
     ))
 
     st.plotly_chart(fig)
