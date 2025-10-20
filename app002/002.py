@@ -100,6 +100,9 @@ def plot_counting(y_achsenabschnitt=0.0):
     vectorized_verlust = np.vectorize(calc_verlust)
     
     x2_vals = np.linspace(10,50,100)
+    x2_vals = np.append(x2_vals, 30)      # 30 hinzufügen
+    x2_vals = np.unique(x2_vals)          # doppelte entfernen, falls 30 schon drin ist
+    x2_vals.sort()
     y2_vals = vectorized_verlust(x2_vals)
 
     ax[1].set_xlabel('Gewichtsgrenze (kg)')
