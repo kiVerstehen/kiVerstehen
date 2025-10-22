@@ -2,7 +2,7 @@
 
 Bearbeite das Arbeitsmaterial auf der [Lernplattform](https://sv07017.informatik.uni-giessen.de/).
 
-Du kannst die einzelnen Apps über folgende Links öffnen oder als Iframe in ein eigenes Lernmodul einbinden:
+Du kannst die einzelnen Apps außerdem über folgende Links öffnen oder als Iframe in ein eigenes Lernmodul einbinden:
 
 - [app001: Unterscheidung von Hund und Katze anhand des Gewichts](https://sv07017.informatik.uni-giessen.de/app001/)
 - [app002: Verlustfunktion: Zählen der falsch kategorisierten Tiere](https://sv07017.informatik.uni-giessen.de/app002/)
