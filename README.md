@@ -5,12 +5,17 @@ Bearbeite das Arbeitsmaterial auf der [Lernplattform](https://sv07017.informatik
 Du kannst die einzelnen Apps über folgende Links öffnen oder als Iframe in ein eigenes Lernmodul einbinden:
 
 [app001: Unterscheidung von Hund und Katze anhand des Gewichts](https://sv07017.informatik.uni-giessen.de/app001/)
+
 [app002: Verlustfunktion: Zählen der falsch kategorisierten Tiere](https://sv07017.informatik.uni-giessen.de/app002/)
+
 [app003: Unterscheidung von Hund und Katze mithilfe einer Geradengleichung](https://sv07017.informatik.uni-giessen.de/app003/)
+
 [app004: Stetige Verlustfunktion anhand des Gewichts](https://sv07017.informatik.uni-giessen.de/app004/)
+
 [app005: stetige Verlustfunktion und Geradengleichung](https://sv07017.informatik.uni-giessen.de/app005/)
-[app006: Krankenkasse](https://sv07017.informatik.uni-giessen.de/app006/)
-[app007: zwei Geraden addieren](https://sv07017.informatik.uni-giessen.de/app007/)
+
+- [app006: Krankenkasse](https://sv07017.informatik.uni-giessen.de/app006/)
+- [app007: zwei Geraden addieren](https://sv07017.informatik.uni-giessen.de/app007/)
 [app008: ein Neuron](https://sv07017.informatik.uni-giessen.de/app008/)
 [app009: zwei Neuronen ](https://sv07017.informatik.uni-giessen.de/app009/)
 [app010: hund oder katze mithilfe von 2 Neuronen ](https://sv07017.informatik.uni-giessen.de/app010/)
