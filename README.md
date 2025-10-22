@@ -1,6 +1,6 @@
 ![kiVerstehen-logo2-1](https://github.com/user-attachments/assets/03b63f60-5c71-4084-a7e9-60d598175984)
 
-Bearbeite das Arbeitsmaterial auf der [Lernplattform](https://sv07017.informatik.uni-giessen.de/)
+Bearbeite das Arbeitsmaterial auf der [Lernplattform](https://sv07017.informatik.uni-giessen.de/).
 
 Du kannst die einzelnen Apps über folgende Links öffnen oder als Iframe in ein eigenes Lernmodul einbinden:
 
