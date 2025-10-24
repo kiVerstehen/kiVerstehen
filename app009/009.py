@@ -35,11 +35,11 @@ def plot_with_new_function(w1=0.3, b1=17.0, w2=0.3, b2=17.0):
 col1, col2 = st.columns([1.5, 3])  # Seitenverhältnis: 1 Teil Slider, 3 Teile Plot
 
 with col1:
-    steigung1 = SyncedSlider("Gewicht 1", -2.0, 2.0, round(random.uniform(-2.0, 2.0),1), key_prefix="slider_s1", step=0.1)
-    y_achsenabschnitt1 = SyncedSlider('Bias 1', -50, 50, random.randint(-50, 50), key_prefix="slider_y1", step=1)
+    steigung1 = SyncedSlider("Gewicht 1", -2.0, 2.0, 0.6, key_prefix="slider_s1", step=0.1)
+    y_achsenabschnitt1 = SyncedSlider('Bias 1', -50, 50, -30, key_prefix="slider_y1", step=1)
     #st.divider()
-    steigung2 = SyncedSlider("Gewicht 2", -2.0, 2.0, round(random.uniform(-2.0, 2.0),1), key_prefix="slider_s2", step=0.1)
-    y_achsenabschnitt2 = SyncedSlider('Bias 2', -50, 50, random.randint(-50, 50), key_prefix="slider_y2", step=1)
+    steigung2 = SyncedSlider("Gewicht 2", -2.0, 2.0, -1.0, key_prefix="slider_s2", step=0.1)
+    y_achsenabschnitt2 = SyncedSlider('Bias 2', -50, 50, 30, key_prefix="slider_y2", step=1)
 
 with col2:
     plot_with_new_function(steigung1.value(), y_achsenabschnitt1.value(), steigung2.value(), y_achsenabschnitt2.value())
