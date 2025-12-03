@@ -21,6 +21,11 @@ Du kannst die einzelnen Apps außerdem über folgende Links öffnen oder als Ifr
 - [app015: app010 auf a1-niveau](https://sv07017.informatik.uni-giessen.de/app015/)
 
 
+Work on the complete material at our [Website](https://sv07017.informatik.uni-giessen.de/).
+
+The different apps (english versions) can also be opened via following links or imported as Iframes:
+
+
 ## Lizenz
 
 Shield: [![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]

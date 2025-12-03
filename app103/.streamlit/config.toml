@@ -1,0 +1,6 @@
+[server]
+headless = true
+port = 8603
+enableCORS = false
+enableXsrfProtection = false
+baseUrlPath = "app103"

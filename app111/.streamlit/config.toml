@@ -1,0 +1,6 @@
+[server]
+headless = true
+port = 8611
+enableCORS = false
+enableXsrfProtection = false
+baseUrlPath = "app111"

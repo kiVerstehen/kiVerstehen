@@ -15,3 +15,4 @@ app011: nn testen f(größe, gewicht)= hund oder Katze
 app012: bild in modell testen
 app013: Zweidimensionale Übertragungsfunktion ReLU-Neuron
 app014: app005 auf a1-niveau
+app015: app010 auf a1-niveau
