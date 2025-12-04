@@ -77,6 +77,8 @@ if middle.button("ask the AI", icon="🤖", use_container_width=True):
     elif dic1=="Apfel": dic1="apple"
     elif dic1=="Arzt": dic1="doctor"
     elif dic1=="Bauarbeiter": dic1="construction worker"
+    elif dic1=="Cool": dic1="cool"
+    elif dic1=="Uncool": dic1="uncool"
 
     if dic2=="Hund": dic2="dog"
     elif dic2=="Katze": dic2="cat"
@@ -84,6 +86,8 @@ if middle.button("ask the AI", icon="🤖", use_container_width=True):
     elif dic2=="Apfel": dic2="apple"
     elif dic2=="Arzt": dic2="doctor"
     elif dic2=="Bauarbeiter": dic2="construction worker"
+    elif dic2=="Cool": dic2="cool"
+    elif dic2=="Uncool": dic2="uncool"
 
     middle.text(f"The picture is {proKat1:.2f}% {dic1} and {proKat2:.2f}% {dic2}")
 
