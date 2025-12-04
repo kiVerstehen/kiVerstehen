@@ -41,24 +41,32 @@ if modell=="dog or cat":
         ("katze.jpg", "hund.jpg", "chihuahua.jpg", "bär.jpg"),
     )
     modellname="hund oder katze"
+    k1="dog"
+    k2="cat"
 elif modell=="tomato or apple":
     testpics = middle.selectbox(
         "Which picture do you want to test?",
         ("tomate.jpg", "apfel.jpg", "paprika.jpg"),
     )
     modellname="tomate oder apfel"
+    k1="tomato"
+    k2="apple"
 elif modell=="doctor or construction worker":
     testpics = middle.selectbox(
         "Which picture do you want to test?",
         ("arzt.jpg", "bauarbeiter.jpg", "weißeTasse.jpg", "arztMitHelm.jpg", "mannImAnzug.jpg"),
     )
     modellname="arzt oder bauarbeiter"
+    k1="doctor"
+    k2="construction worker"
 elif modell=="cool or uncool":
     testpics = middle.selectbox(
         "Which picture do you want to test?",
         ("sonnenbrille.jpg", "crocs.jpg", "vokuhila.jpg"),
     )
     modellname="cool oder uncool"
+    k1="cool"
+    k2="uncool"
 
 
 
@@ -66,5 +74,6 @@ if middle.button("ask the AI", icon="🤖", use_container_width=True):
     #st.text(modell + testpics)
     proKat1, dic1, proKat2, dic2 = testeBildInModell(modellname, testpics)
     middle.image(f'../Beispiel-Modelle/Testbilder/{testpics}', width=500)
-    middle.text(f"The picture is {proKat1:.2f}% {dic1} and {proKat2:.2f}% {dic2}")
+    #middle.text(f"The picture is {proKat1:.2f}% {dic1} and {proKat2:.2f}% {dic2}")
+    middle.text(f"The picture is {k1:.2f}% {dic1} and {k2:.2f}% {dic2}")
 
