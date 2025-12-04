@@ -75,5 +75,5 @@ if middle.button("ask the AI", icon="🤖", use_container_width=True):
     proKat1, dic1, proKat2, dic2 = testeBildInModell(modellname, testpics)
     middle.image(f'../Beispiel-Modelle/Testbilder/{testpics}', width=500)
     #middle.text(f"The picture is {proKat1:.2f}% {dic1} and {proKat2:.2f}% {dic2}")
-    middle.text(f"The picture is {k1:.2f}% {dic1} and {k2:.2f}% {dic2}")
+    middle.text(f"The picture is {proKat1:.2f}% {k1} and {proKat2:.2f}% {k2}")
 
