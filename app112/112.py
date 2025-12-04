@@ -41,8 +41,8 @@ if modell=="dog or cat":
         ("katze.jpg", "hund.jpg", "chihuahua.jpg", "bär.jpg"),
     )
     modellname="hund oder katze"
-    k1="dog"
-    k2="cat"
+    k2="dog"
+    k1="cat"
 elif modell=="tomato or apple":
     testpics = middle.selectbox(
         "Which picture do you want to test?",
