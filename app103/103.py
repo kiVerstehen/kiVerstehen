@@ -52,7 +52,7 @@ def plot_counting(steigung=1.0, y_achsenabschnitt=0.0):
     # Draw decision boundary
     x_vals = np.linspace(10, 70, 100)
     y_vals = y_achsenabschnitt + steigung * x_vals
-    ax.plot(x_vals, y_vals, color='royalblue', label=f'Gerade: y = {steigung:.1f}x + {y_achsenabschnitt:.2f}')
+    ax.plot(x_vals, y_vals, color='royalblue', label=f'line: y = {steigung:.1f}x + {y_achsenabschnitt:.2f}')
 
     # Bereich einfärben
     
