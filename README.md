@@ -25,6 +25,21 @@ Work on the complete material at our [Website](https://sv07017.informatik.uni-gi
 
 The different apps (english versions) can also be opened via following links or imported as Iframes:
 
+- [app001: differing cats and dogs depending on their weight](https://sv07017.informatik.uni-giessen.de/app101/)
+- [app002: loss function: counting falsly categorized animals](https://sv07017.informatik.uni-giessen.de/app102/)
+- [app003: differing cats and dogs using a linear equation](https://sv07017.informatik.uni-giessen.de/app103/)
+- [app004: steady loss function depending on the weight](https://sv07017.informatik.uni-giessen.de/app104/)
+- [app005: steady loss fucntion using a linear equation](https://sv07017.informatik.uni-giessen.de/app105/)
+- [app006: health insurance](https://sv07017.informatik.uni-giessen.de/app106/)
+- [app007: adding two linear equations](https://sv07017.informatik.uni-giessen.de/app107/)
+- [app008: a neuronn](https://sv07017.informatik.uni-giessen.de/app108/)
+- [app009: two neurons](https://sv07017.informatik.uni-giessen.de/app109/)
+- [app010: cats and dogs using two neurons](https://sv07017.informatik.uni-giessen.de/app110/)
+- [app011: testing nn ,f(height, weight)= cat or dog](https://sv07017.informatik.uni-giessen.de/app111/)
+- [app012: testen pictures](https://sv07017.informatik.uni-giessen.de/app112/)
+- [app013: two-dimensional activation function of the ReLU-neuron](https://sv07017.informatik.uni-giessen.de/app113/)
+- [app014: app105 on a1-niveau](https://sv07017.informatik.uni-giessen.de/app114/)
+- [app015: app110 on a1-niveau](https://sv07017.informatik.uni-giessen.de/app115/)
 
 ## Lizenz
 
